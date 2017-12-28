@@ -12,7 +12,7 @@ public final class Const {
         for (int i = 0; i < Strings.paths.length; i++) {
             try {
                 Font font = Font.createFont(Font.TRUETYPE_FONT, new File(Strings.paths[i]));
-                RetroMain.con.println(font.getFontName());
+                RetroMain.con.println("loaded " + font.getFontName());
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 ge.registerFont(font);
 
@@ -22,7 +22,6 @@ public final class Const {
                 RetroMain.con.println(e.toString());
             }
         }
-
     }
 
     public static class Variables {
@@ -39,6 +38,7 @@ public final class Const {
         private static final String elements_light = "#b7b7b7";
         private static final String accent = "#16222a"; //16222a
         private static final String accent_dark = "#a5c3d1"; //3a6073
+        private static final String accent_light = "#3bb4ed"; //3a6073
 
         private Colors() {
         }
@@ -62,18 +62,28 @@ public final class Const {
         public static Color accent_dark() {
             return Color.decode(accent_dark);
         }
+
+        public static Color accent_light() {
+            return Color.decode(accent_light);
+        }
     }
 
     public static final class Strings {
-        public static final String name = "Space Invaders";
         public static final String start = "Start";
+        public static final String name = "Retro";
         public static final String options = "Options";
         public static final String title = "Welcome,";
+        public static final String menutitle = "Main Menu";
         public static final String[] paths = {
-                "res/NotoSans-Black.ttf",
-                "res/NotoSans-Bold.ttf",
-                "res/PixelVerdana.ttf",
-                "res/VeraMono.ttf"
+                "res/fonts/NotoSans-Black.ttf",
+                "res/fonts/NotoSans-Bold.ttf",
+                "res/fonts/PixelVerdana.ttf",
+                "res/fonts/VeraMono.ttf"
+        };
+        public static final String[] games = {
+                "Main Menu",
+                "Space Impact",
+                "TestGame"
         };
 
         private Strings() {

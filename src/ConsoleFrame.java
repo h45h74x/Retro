@@ -6,7 +6,12 @@ public class ConsoleFrame extends JFrame {
     private int count;
     private boolean showLines = false;
 
-    public ConsoleFrame(int x, int y, int w, int h) {
+    public ConsoleFrame(MainMenu frame) {
+        int x = frame.getX();
+        int y = frame.getY();
+        int w = frame.getWidth();
+        int h = frame.getHeight();
+
         setTitle("Console");
         count = 0;
         log = new JTextArea();
@@ -23,6 +28,8 @@ public class ConsoleFrame extends JFrame {
         countUp();
         setBounds(x + w, y, 200, h);
         add(scroll);
+
+        display();
     }
 
     public void print(String t) {
@@ -40,7 +47,22 @@ public class ConsoleFrame extends JFrame {
         countUp();
     }
 
+    public void println(int t) {
+        print(String.valueOf(t) + "\n");
+        countUp();
+    }
+
+    public void spacer(String symbol) {
+        String output = symbol;
+        for (int i = 0; i < 6; i++) output += output;
+        println(output);
+    }
+
+    public void spacer() {
+        println("");
+    }
+
     public void display() {
-        setVisible(true);
+        if (Const.Bools.debug) setVisible(true);
     }
 }
