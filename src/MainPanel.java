@@ -6,18 +6,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class MainPanel extends Game {
-    private Color c1;
-    private Color c2;
+    private Color c1 = Const.Colors.accent_dark();
+    private Color c2 = Const.Colors.accent();
 
     private MainMenu frame;
     private RetroMain main;
 
-    public MainPanel(Color c1, Color c2, RetroMain main) {
+    public MainPanel(RetroMain main, String name) {
         super(main.getMainFrame());
-        this.c1 = c1;
-        this.c2 = c2;
         this.frame = main.getMainFrame();
         this.main = main;
+        this.name = name;
 
         setBackground(Const.Colors.background());
         setup();
@@ -27,7 +26,7 @@ public class MainPanel extends Game {
 
     private void setup() {
         JLabel t1 = new JLabel();
-        t1.setText(Const.Strings.title);
+        t1.setText(name);
         t1.setForeground(Const.Colors.elements());
         t1.setFont(new Font("Noto Sans", Font.PLAIN, 72));
         t1.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -48,28 +47,28 @@ public class MainPanel extends Game {
             public void keyReleased(KeyEvent e) {
                 if (!tf1.getText().equals("")) Const.Variables.username = tf1.getText();
                 else Const.Variables.username = "Player";
-                RetroMain.con.println(Const.Variables.username);
+                RetroMain.con.printlnInfo(Const.Variables.username);
             }
         });
 
-        RButton b1 = new RButton(Const.Strings.start);
+        RButton b1 = new RButton(Const.Strings.choose_game);
         b1.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b1.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RetroMain.con.println("Start");
-                main.startGame(Const.Strings.games.length - 1);
+                RetroMain.con.printlnInfo("Start");
+                main.startGame(Const.Games.GAME_SELECTOR);
             }
         });
 
-        RButton b2 = new RButton(Const.Strings.options);
+        RButton b2 = new RButton(Const.Strings.credits);
         b2.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b2.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RetroMain.con.println("Options");
+                RetroMain.con.printlnInfo("Options");
             }
         });
 
@@ -102,26 +101,36 @@ public class MainPanel extends Game {
     }
 
     public void key_W(boolean pressed) {
-        RetroMain.con.println("W");
+        RetroMain.con.printlnInfo("W");
     }
 
     public void key_A(boolean pressed) {
-        RetroMain.con.println("A");
+        RetroMain.con.printlnInfo("A");
     }
 
     public void key_S(boolean pressed) {
-        RetroMain.con.println("S");
+        RetroMain.con.printlnInfo("S");
     }
 
     public void key_D(boolean pressed) {
-        RetroMain.con.println("D");
+        RetroMain.con.printlnInfo("D");
     }
 
     public void key_ESC(boolean pressed) {
-        RetroMain.con.println("ESC");
+        RetroMain.con.printlnInfo("ESC");
     }
 
     public void key_SPACE(boolean pressed) {
-        RetroMain.con.println("SPACE");
+        RetroMain.con.printlnInfo("SPACE");
     }
+
+    public void kill() {
+    }
+
+    public void pause() {
+    }
+
+    public void gameOver(Graphics g) {
+    }
+
 }

@@ -10,11 +10,14 @@ public class MainMenu extends JFrame {
         this.c = c;
 
         setTitle(name);
-        setSize(Const.Numbers.width, Const.Numbers.height);
+
         getContentPane().setBackground(Const.Colors.background());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        setSize(Const.Numbers.width, Const.Numbers.height);
         setLocationRelativeTo(null);
         if (Const.Bools.debug) setLocation(getX() - 200, getY());
+
         setResizable(false);
         setVisible(true);
         requestFocus();

@@ -10,18 +10,17 @@ public class RButton extends JButton {
         this.text = text;
         setText(text);
         setOpaque(false);
-        setForeground(Const.Colors.elements());
+        setForeground(Const.Colors.elements_light());
         setContentAreaFilled(false);
         setFocusPainted(false);
 
-
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                setForeground(Const.Colors.elements_light());
+                setForeground(Color.white);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                setForeground(Const.Colors.elements());
+                setForeground(Const.Colors.elements_light());
             }
         });
     }

@@ -1,16 +1,14 @@
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RetroMain {
 
     public static ConsoleFrame con;
 
+    private Game game;
+    private JPanel mainPanel;
+
     private static RetroMain main;
-    private static TestGame testgame;
-    private static KeyAdapter gameKeys;
     private MainMenu mainFrame;
-    private MainPanel p1;
 
     private RetroMain() {
         mainFrame = new MainMenu(Const.Strings.name);
@@ -20,64 +18,65 @@ public class RetroMain {
 
     public static void main(String[] args) {
         main = new RetroMain();
+        home();
+    }
+
+    public static void home() {
         main.startGame(0);
     }
 
-    public void startGame(int index) {
-        if (index != 0) {
-            mainFrame.removeKeyListener(gameKeys);
-            mainFrame.remove(p1);
-        }
-        switch (index) {
-            case 1: //Space Invaders
-                break;
-            case 2: //TestGame
-                gameKeys = new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        if (e.getKeyCode() == KeyEvent.VK_W) testgame.key_W(true);
-                        else if (e.getKeyCode() == KeyEvent.VK_A) testgame.key_A(true);
-                        else if (e.getKeyCode() == KeyEvent.VK_S) testgame.key_S(true);
-                        else if (e.getKeyCode() == KeyEvent.VK_D) testgame.key_D(true);
-                        else if (e.getKeyCode() == KeyEvent.VK_SPACE) testgame.key_SPACE(true);
-                        else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) testgame.key_ESC(true);
-                        else con.println(KeyEvent.getKeyText(e.getKeyCode()));
-                    }
+    public static void extStartGame(int index) {
+        main.startGame(index);
+    }
 
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                        if (e.getKeyCode() == KeyEvent.VK_W) testgame.key_W(false);
-                        else if (e.getKeyCode() == KeyEvent.VK_A) testgame.key_A(false);
-                        else if (e.getKeyCode() == KeyEvent.VK_S) testgame.key_S(false);
-                        else if (e.getKeyCode() == KeyEvent.VK_D) testgame.key_D(false);
-                        else if (e.getKeyCode() == KeyEvent.VK_SPACE) testgame.key_SPACE(false);
-                        else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) testgame.key_ESC(false);
-                        else con.println(KeyEvent.getKeyText(e.getKeyCode()));
-                    }
-                };
-                testgame = new TestGame(mainFrame, Const.Strings.games[index]);
-                mainFrame.add(testgame);
+    private void detachGame() {
+        if (game != null) {
+            mainFrame.removeKeyListener(game.getGameKeys());
+            game.kill();
+            game.setVisible(false);
+            game.validate();
+            game = null;
+        }
+        if (mainPanel != null) {
+            mainFrame.remove(mainPanel);
+            mainPanel.setVisible(false);
+            mainPanel.validate();
+            mainPanel = null;
+        }
+    }
+
+    private void attachGame() {
+        if (game != null) {
+            game.setVisible(true);
+            game.revalidate();
+            mainFrame.add(game);
+            mainFrame.addKeyListener(game.getGameKeys());
+        }
+        if (mainPanel != null) {
+            mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+            mainFrame.add(mainPanel);
+            mainPanel.setVisible(true);
+            mainPanel.revalidate();
+        }
+        mainFrame.repaint();
+    }
+
+    public void startGame(int index) {
+        detachGame();
+        switch (index) {
+            case Const.Games.GAME_SELECTOR:
+                mainPanel = new GameSelector(this, Const.Games.names[index]);
+                break;
+            case Const.Games.SPACE_IMPACT:
+                break;
+            case Const.Games.TESTGAME:
+                game = new TestGame(mainFrame, Const.Games.names[index]);
                 break;
             default: //MainMenu
-                gameKeys = new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        con.println("Key Pressed @ MM");
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                        con.println("Key Pressed @ MM");
-                    }
-                };
-
-                p1 = new MainPanel(Const.Colors.accent_dark(), Const.Colors.accent(), this);
-                p1.setLayout(new BoxLayout(p1, BoxLayout.PAGE_AXIS));
-
-                mainFrame.add(p1);
+                mainPanel = new MainPanel(this, Const.Games.names[index]);
                 break;
         }
-        mainFrame.addKeyListener(gameKeys);
+        attachGame();
         mainFrame.setVisible(true);
         mainFrame.requestFocus();
     }
