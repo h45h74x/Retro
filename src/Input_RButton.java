@@ -2,10 +2,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class RButton extends JButton {
+public class Input_RButton extends JButton {
     private String text;
 
-    public RButton(String text) {
+    public Input_RButton(String text) {
         setBorder(new RoundedBorder(10));
         this.text = text;
         setText(text);

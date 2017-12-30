@@ -7,13 +7,13 @@ import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
-public class ConsoleFrame extends JFrame {
+public class Debug_Console extends JFrame {
     private StyledDocument doc;
     private Style style;
     private int count;
     private boolean showLines = false;
 
-    public ConsoleFrame(MainMenu frame) {
+    public Debug_Console(UI_Frame frame) {
         int x = frame.getX();
         int y = frame.getY();
         int w = frame.getWidth();
@@ -23,7 +23,7 @@ public class ConsoleFrame extends JFrame {
         doc = log.getStyledDocument();
         style = log.addStyle("I'm a Style", null);
 
-        setTitle("Console");
+        setTitle("Debug_Console");
         count = 0;
 
         resetColor();
@@ -160,5 +160,6 @@ public class ConsoleFrame extends JFrame {
 
     public void display() {
         if (Const.Bools.debug) setVisible(true);
+        else setVisible(false);
     }
 }

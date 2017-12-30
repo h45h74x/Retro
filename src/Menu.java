@@ -3,11 +3,14 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public abstract class Game extends JPanel {
+public abstract class Menu extends JPanel {
+    protected Color c1 = Const.Colors.accent();
+    protected Color c2 = Const.Colors.accent_dark();
 
-    protected UI_Frame frame;
-    protected String name;
-    protected KeyAdapter gameKeys = new KeyAdapter() {
+    protected Launcher main;
+    protected JFrame frame;
+
+    protected KeyAdapter menuKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_W) key_W(true);
@@ -31,25 +34,46 @@ public abstract class Game extends JPanel {
         }
     };
 
-
-    public KeyAdapter getGameKeys() {
-        return gameKeys;
-    }
-
-    protected Game(UI_Frame frame, String name) {
+    protected Menu(Launcher main) {
         super();
-        this.frame = frame;
-        this.name = name;
+        this.main = main;
+        this.frame = main.getMainFrame();
+
+        setBackground(Const.Colors.accent_dark());
+        setup();
+        setOpaque(true);
+        setVisible(true);
+
         Launcher.con.spacer("-");
-        Launcher.con.println("created " + name);
+        Launcher.con.println("Created Menu");
     }
 
-    public String getName() {
-        return this.name;
+    public KeyAdapter getMenuKeys() {
+        return menuKeys;
     }
 
+    protected void back() {
+        Launcher.con.printlnInfo("Back");
+        main.startMenu(Const.Menues.MAIN_MENU);
+    }
 
-    protected abstract Graphics syncGraphics(Graphics g);
+    protected abstract void setup();
+
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int width = getWidth();
+        int height = getHeight();
+
+        Graphics2D g2 = (Graphics2D) g;
+        Paint gradient = new GradientPaint(
+                0, 0, c1,
+                0, height, c2,
+                true
+        );
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setPaint(gradient);
+        g2.fillRect(0, 0, width, height);
+    }
 
     protected abstract void key_W(boolean pressed);
 
@@ -63,9 +87,4 @@ public abstract class Game extends JPanel {
 
     protected abstract void key_ESC(boolean pressed);
 
-    protected abstract void kill();
-
-    protected abstract void pause();
-
-    protected abstract void resume();
 }
