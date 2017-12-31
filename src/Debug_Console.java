@@ -4,14 +4,12 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 
+@SuppressWarnings("ConstantConditions")
 public class Debug_Console extends JFrame {
-    private StyledDocument doc;
-    private Style style;
+    private final StyledDocument doc;
+    private final Style style;
     private int count;
-    private boolean showLines = false;
 
     public Debug_Console(UI_Frame frame) {
         int x = frame.getX();
@@ -36,11 +34,7 @@ public class Debug_Console extends JFrame {
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        scroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-            }
-        });
+        scroll.getVerticalScrollBar().addAdjustmentListener(e -> e.getAdjustable().setValue(e.getAdjustable().getMaximum()));
 
         countUp();
         setBounds(x + w, y, 200, h);
@@ -49,34 +43,34 @@ public class Debug_Console extends JFrame {
         display();
     }
 
-    public void resetColor() {
+    private void resetColor() {
         StyleConstants.setForeground(style, Color.green);
     }
 
-    public void print(String t) {
+    private void print(String t) {
         //log.setText(log.getText() + t);
         StyleConstants.setForeground(style, Color.green);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
-    public void printError(String t) {
+    private void printError(String t) {
         //log.setText(log.getText() + t);
         StyleConstants.setForeground(style, Color.red);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
-    public void printWarning(String t) {
+    private void printWarning(String t) {
         //log.setText(log.getText() + t);
         StyleConstants.setForeground(style, Color.yellow);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
@@ -85,25 +79,25 @@ public class Debug_Console extends JFrame {
         StyleConstants.setForeground(style, Color.blue);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
-    public void printQuiet(String t) {
+    private void printQuiet(String t) {
         //log.setText(log.getText() + t);
         StyleConstants.setForeground(style, Color.lightGray);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
-    public void print(String t, Color c) {
+    private void print(String t, Color c) {
         //log.setText(log.getText() + t);
         StyleConstants.setForeground(style, c);
         try {
             doc.insertString(doc.getLength(), t, style);
-        } catch (BadLocationException e) {
+        } catch (BadLocationException ignored) {
         }
     }
 
@@ -132,12 +126,13 @@ public class Debug_Console extends JFrame {
         countUp();
     }
 
-    public void printlnQuiet(String t) {
+    private void printlnQuiet(String t) {
         printQuiet(t + "\n");
         countUp();
     }
 
     private void countUp() {
+        boolean showLines = false;
         if (!showLines) return;
         count++;
         print(count + ": ");
@@ -158,7 +153,7 @@ public class Debug_Console extends JFrame {
         printlnQuiet("");
     }
 
-    public void display() {
+    private void display() {
         if (Const.Bools.debug) setVisible(true);
         else setVisible(false);
     }

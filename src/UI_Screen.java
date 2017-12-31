@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class UI_Screen extends JPanel {
-    private Game parent;
+class UI_Screen extends JPanel {
+    private final Game parent;
     private boolean active = true;
 
     UI_Screen(Game parent) {
@@ -16,6 +16,7 @@ public class UI_Screen extends JPanel {
         this.active = active;
     }
 
+    @SuppressWarnings("UnusedAssignment")
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (!active) return;

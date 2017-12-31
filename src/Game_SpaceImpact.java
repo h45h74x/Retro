@@ -2,14 +2,8 @@ import java.awt.*;
 
 public class Game_SpaceImpact extends Game {
 
-    private UI_Screen screen;
-
-    private boolean up;
-    private boolean down;
-    private boolean shoot;
-
-    protected Game_SpaceImpact(UI_Frame frame, String name) {
-        super(frame, name);
+    Game_SpaceImpact(String name) {
+        super(name);
         setup();
     }
 
@@ -21,7 +15,7 @@ public class Game_SpaceImpact extends Game {
     private void setup() {
         setLayout(new BorderLayout());
 
-        screen = new UI_Screen(this);
+        UI_Screen screen = new UI_Screen(this);
         screen.setBackground(Const.SpaceImpact.background());
         add(screen, BorderLayout.CENTER);
 
@@ -32,6 +26,7 @@ public class Game_SpaceImpact extends Game {
 
     @Override
     protected void key_W(boolean pressed) {
+        boolean up;
         if (pressed) {
             Launcher.con.printlnInfo("Up @ " + name);
             up = true;
@@ -45,6 +40,7 @@ public class Game_SpaceImpact extends Game {
 
     @Override
     protected void key_S(boolean pressed) {
+        boolean down;
         if (pressed) {
             Launcher.con.printlnInfo("Down @ " + name);
             down = true;
@@ -58,6 +54,7 @@ public class Game_SpaceImpact extends Game {
 
     @Override
     protected void key_SPACE(boolean pressed) {
+        boolean shoot;
         if (pressed) {
             Launcher.con.printlnInfo("Shoot @ " + name);
             shoot = true;

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class Menu_Credits extends Menu {
@@ -31,31 +29,19 @@ public class Menu_Credits extends Menu {
         b1.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b1.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openLink(Const.Strings.github_link);
-            }
-        });
+        b1.addActionListener(e -> openLink(Const.Strings.github_link));
 
         Input_RButton b2 = new Input_RButton(Const.Strings.website_h45);
         b2.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b2.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openLink(Const.Strings.website_h45_link);
-            }
-        });
+        b2.addActionListener(e -> openLink(Const.Strings.website_h45_link));
 
         Input_RButton b3 = new Input_RButton(Const.Strings.back);
         b3.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b3.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                back();
-            }
-        });
+        b3.addActionListener(e -> back());
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(t1);

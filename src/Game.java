@@ -3,11 +3,10 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public abstract class Game extends JPanel {
-
-    protected UI_Frame frame;
-    protected String name;
-    protected KeyAdapter gameKeys = new KeyAdapter() {
+@SuppressWarnings("Duplicates")
+abstract class Game extends JPanel {
+    final String name;
+    private final KeyAdapter gameKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_W) key_W(true);
@@ -31,23 +30,20 @@ public abstract class Game extends JPanel {
         }
     };
 
-
-    public KeyAdapter getGameKeys() {
-        return gameKeys;
-    }
-
-    protected Game(UI_Frame frame, String name) {
+    Game(String name) {
         super();
-        this.frame = frame;
         this.name = name;
         Launcher.con.spacer("-");
         Launcher.con.println("created " + name);
     }
 
+    KeyAdapter getGameKeys() {
+        return gameKeys;
+    }
+
     public String getName() {
         return this.name;
     }
-
 
     protected abstract Graphics syncGraphics(Graphics g);
 

@@ -1,25 +1,23 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 
 //Hearts    Boss bar    (Score &) Pause
 
-public class UI_StatusBar extends JPanel {
+class UI_StatusBar extends JPanel {
     private ImageIcon[] icons;
     private JLabel[] hearts;
     private Game parent;
 
-    private Color bg = Const.Colors.gray_light();
+    private final Color bg = Const.Colors.gray_light();
 
-    private int imageSize = 15;
+    private final int imageSize = 15;
     private int heartCount = 0;
-    private int yPadding = 10;
+    private final int yPadding = 10;
 
-    private int height = imageSize + yPadding;
-    private int width = Const.Numbers.width;
+    private final int height = imageSize + yPadding;
+    private final int width = Const.Numbers.width;
 
     private UI_StatusBar() {
     }
@@ -66,11 +64,7 @@ public class UI_StatusBar extends JPanel {
 
 
         JButton pause = new JButton(icons[1]);
-        pause.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                pause();
-            }
-        });
+        pause.addActionListener(e -> pause());
         pause.setContentAreaFilled(false);
         pause.setFocusPainted(false);
         pause.setFocusable(false);
@@ -94,7 +88,7 @@ public class UI_StatusBar extends JPanel {
         return heartCount;
     }
 
-    void setHeartCount(int num) {
+    private void setHeartCount(int num) {
         heartCount = num;
     }
 

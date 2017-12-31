@@ -2,12 +2,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-public class Input_RButton extends JButton {
-    private String text;
+class Input_RButton extends JButton {
 
     public Input_RButton(String text) {
-        setBorder(new RoundedBorder(10));
-        this.text = text;
+        setBorder(new RoundedBorder());
         setText(text);
         setOpaque(false);
         setForeground(Const.Colors.elements_light());
@@ -26,10 +24,10 @@ public class Input_RButton extends JButton {
     }
 
     private static class RoundedBorder implements Border {
-        private int radius;
+        private final int radius;
 
-        RoundedBorder(int radius) {
-            this.radius = radius;
+        RoundedBorder() {
+            this.radius = 10;
         }
 
         public Insets getBorderInsets(Component c) {

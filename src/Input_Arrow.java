@@ -3,24 +3,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileInputStream;
 
-public class Input_Arrow extends JButton {
-    private String iconpath;
-    private int width;
+class Input_Arrow extends JButton {
 
     public Input_Arrow(boolean left) {
         super();
-        this.width = 50;
+        int width = 50;
         setForeground(Const.Colors.elements_light());
         setBorderPainted(false);
         setFocusPainted(false);
         setFocusable(false);
         setBackground(Const.Colors.accent_dark());
 
+        String iconpath;
         if (left) iconpath = Const.Strings.iconpaths[1];
         else iconpath = Const.Strings.iconpaths[2];
 
         try {
             Image img = ImageIO.read(new FileInputStream(iconpath));
+            //noinspection SuspiciousNameCombination
             img = img.getScaledInstance(width, width, java.awt.Image.SCALE_SMOOTH);
 
             setIcon(new ImageIcon(img));

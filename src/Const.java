@@ -2,7 +2,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public final class Const {
+@SuppressWarnings("ALL")
+final class Const {
 
     private Const() {
     }
@@ -16,9 +17,7 @@ public final class Const {
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 ge.registerFont(font);
 
-            } catch (FontFormatException e) {
-                Launcher.con.println(e.toString());
-            } catch (IOException e) {
+            } catch (FontFormatException | IOException e) {
                 Launcher.con.println(e.toString());
             }
         }
@@ -28,6 +27,7 @@ public final class Const {
         public static String username = "Player";
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
         public static final boolean debug = true;
     }
@@ -88,18 +88,14 @@ public final class Const {
         public static final String name = "Retro";
         public static final String credits = "Credits";
         public static final String greeting = "Welcome,";
+        @SuppressWarnings("SpellCheckingInspection")
         public static final String menutitle = "Main Menu";
         public static final String github = "Visit our GitHub Repo!";
         public static final String github_link = "https://github.com/h45h74x/retro";
+        @SuppressWarnings("SpellCheckingInspection")
         public static final String website_h45 = "Visit Simons Website!";
         public static final String website_h45_link = "http://h45h74x.eu.org";
-
-        public static final String[] fontpaths = {
-                "res/fonts/NotoSans-Black.ttf",
-                "res/fonts/NotoSans-Bold.ttf",
-                "res/fonts/PixelVerdana.ttf",
-                "res/fonts/VeraMono.ttf"
-        };
+        @SuppressWarnings("SpellCheckingInspection")
         public static final String[] iconpaths = {
                 "res/icons/retro.png",
                 "res/icons/arrow_left.png",
@@ -107,18 +103,27 @@ public final class Const {
                 "res/icons/heart.png",
                 "res/icons/pause.png"
         };
-
-
-        private Strings() {
-        }
-
+        @SuppressWarnings("SpellCheckingInspection")
         public static final String creditText = "Retro is a collection of recoded, old games.\n" +
                 "It is entirely written in Java and combines a clean, modern UI with nostalgia. \n" +
                 " \n" +
                 "Retro was created by Selma Hasanovic (selmah1) and Simon Gruber (h45h74x)";
 
+
+        private Strings() {
+        }
+
+        @SuppressWarnings("SpellCheckingInspection")
+        static final String[] fontpaths = {
+                "res/fonts/NotoSans-Black.ttf",
+                "res/fonts/NotoSans-Bold.ttf",
+                "res/fonts/PixelVerdana.ttf",
+                "res/fonts/VeraMono.ttf"
+        };
+
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public static final class Menues {
 
         public static final String[] names = {
@@ -146,6 +151,7 @@ public final class Const {
                 "No Game"
         };
 
+        @SuppressWarnings("SpellCheckingInspection")
         public static final String[] icons = {
                 "res/icons/spaceimpact.png",
                 "res/icons/testgame.png",
@@ -153,25 +159,28 @@ public final class Const {
         };
 
         public static final int SPACE_IMPACT = 0;
+        @SuppressWarnings("SpellCheckingInspection")
         public static final int TESTGAME = 1;
     }
 
     public static final class Numbers {
-        public static int width = 900;
-        public static int height = 600;
-        public static int selectorPos = 1;
-        public static int creditLength = 170;
+        public static final int width = 900;
+        public static final int height = 600;
+        public static final int selectorPos = 1;
+        public static final int creditLength = 170;
 
         private Numbers() {
         }
     }
 
     public static final class SpaceImpact {
-        private static final String background = "#78a57f";
+        @SuppressWarnings("SpellCheckingInspection")
         private static final String[] iconpaths = {
                 "heart",
                 "pause"
         };
+
+        private static final String background = "#78a57f";
 
         private SpaceImpact() {
         }

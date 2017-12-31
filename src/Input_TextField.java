@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Input_TextField extends JTextField {
+class Input_TextField extends JTextField {
     public Input_TextField() {
         setForeground(Const.Colors.elements());
         setBorder(javax.swing.BorderFactory.createEmptyBorder());

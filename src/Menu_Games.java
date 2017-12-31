@@ -1,24 +1,20 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 
 public class Menu_Games extends Menu {
-    private static JLabel t1 = new JLabel();
-    GameScrollPanel scrollPanel;
-    private int xPadding = 50;
-    private int yPadding = 40;
+    private static final JLabel t1 = new JLabel();
+    private GameScrollPanel scrollPanel;
     private int position;
 
-
-    protected Menu_Games(Launcher main) {
+    Menu_Games(Launcher main) {
         super(main);
     }
 
     protected void setup() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        disableGradient();
 
         scrollPanel = new GameScrollPanel(this);
         scrollPanel.setBackground(Const.Colors.accent_dark());
@@ -33,22 +29,16 @@ public class Menu_Games extends Menu {
 
         Input_RButton bt1 = new Input_RButton(Const.Strings.start);
         bt1.setFont(new Font("Noto Sans", Font.PLAIN, 20));
-        bt1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Launcher.con.printlnInfo("Start");
-                startGame();
-            }
+        bt1.addActionListener(e -> {
+            Launcher.con.printlnInfo("Start");
+            startGame();
         });
         bt1.setForeground(Color.white);
         bt1.setPreferredSize(new Dimension(250, 50));
 
         Input_RButton bt2 = new Input_RButton(Const.Strings.back);
         bt2.setFont(new Font("Noto Sans", Font.PLAIN, 20));
-        bt2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                back();
-            }
-        });
+        bt2.addActionListener(e -> back());
         bt2.setForeground(Color.white);
         bt2.setPreferredSize(new Dimension(250, 50));
 
@@ -66,10 +56,12 @@ public class Menu_Games extends Menu {
         textPanel.add(t1, BorderLayout.LINE_START);
         textPanel.add(t2, BorderLayout.LINE_END);
 
+        int xPadding = 50;
         textPanel.setMaximumSize(new Dimension(Const.Numbers.width - xPadding, 100));
         buttonPanel.setMaximumSize(new Dimension(Const.Numbers.width - xPadding, 100));
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        int yPadding = 40;
         add(Box.createRigidArea(new Dimension(0, yPadding / 2)));
         add(textPanel);
         add(Box.createRigidArea(new Dimension(0, yPadding / 2)));
@@ -109,7 +101,7 @@ public class Menu_Games extends Menu {
         if (pressed) back();
     }
 
-    void setGamePosition(int i) {
+    private void setGamePosition(int i) {
         t1.setText(Const.Games.names[i]);
         position = i;
         Launcher.con.printInfo(position + " ");
@@ -120,7 +112,7 @@ public class Menu_Games extends Menu {
         Launcher.extStartGame(position);
     }
 
-    public static class GameScrollPanel extends JPanel {
+    static class GameScrollPanel extends JPanel {
         private JButton left;
         private JButton right;
         private JButton middle;
@@ -132,30 +124,31 @@ public class Menu_Games extends Menu {
         private Image icon_middle;
         private Image icon_right;
 
-        private Menu_Games parent;
-        private int height;
+        private final Menu_Games parent;
+        private final int height;
 
-        private int imageSize = 160;
-        private int imageSizeSmall = 100;
-        private int yPadding = 50;
-        private int yPos = 500;
+        private final int imageSize = 160;
+        private final int imageSizeSmall = 100;
+        private final int yPadding = 50;
+        private final int yPos = 500;
 
         private int position = Const.Numbers.selectorPos;
-        private int numgames = Const.Games.names.length;
+        private final int numgames = Const.Games.names.length;
 
-        public GameScrollPanel(Menu_Games parent) {
+        GameScrollPanel(Menu_Games parent) {
             super();
             this.parent = parent;
             height = getHeight();
             setup();
         }
 
-        public int getPosition() {
+        int getPosition() {
             return position;
         }
 
         private void setup() {
             setLayout(new BorderLayout());
+            setBackground(Const.Colors.accent_dark());
 
             left = new JButton();
             left.setPreferredSize(new Dimension(imageSizeSmall, imageSizeSmall));
@@ -190,9 +183,9 @@ public class Menu_Games extends Menu {
             scrollPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
             scrollPanel.setPreferredSize(new Dimension(0, yPos));
             scrollPanel.add(left);
-            scrollPanel.add(Box.createRigidArea(new Dimension(yPadding, 0)));
+            scrollPanel.add(Box.createRigidArea(new Dimension(0, yPadding)));
             scrollPanel.add(middle);
-            scrollPanel.add(Box.createRigidArea(new Dimension(yPadding, 0)));
+            scrollPanel.add(Box.createRigidArea(new Dimension(0, yPadding)));
             scrollPanel.add(right);
 
             JPanel wrapper = new JPanel();
@@ -201,23 +194,14 @@ public class Menu_Games extends Menu {
             wrapper.add(scrollPanel);
             add(wrapper, BorderLayout.CENTER);
 
-
             Input_Arrow bt_left = new Input_Arrow(true);
             bt_left.setPreferredSize(new Dimension(50, height));
-            bt_left.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    left();
-                }
-            });
+            bt_left.addActionListener(e -> left());
             add(bt_left, BorderLayout.LINE_START);
 
             Input_Arrow bt_right = new Input_Arrow(false);
             bt_right.setPreferredSize(new Dimension(50, height));
-            bt_right.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    right();
-                }
-            });
+            bt_right.addActionListener(e -> right());
             add(bt_right, BorderLayout.LINE_END);
         }
 
@@ -261,7 +245,7 @@ public class Menu_Games extends Menu {
             }
         }
 
-        public void right() {
+        void right() {
             int swap = position + 1;
             if (swap >= numgames - 1) {
                 swap = numgames - 1;
@@ -269,12 +253,13 @@ public class Menu_Games extends Menu {
             swapImages(swap);
         }
 
-        public void left() {
+        void left() {
             int swap = position - 1;
             if (swap < 0) {
                 swap = 0;
             }
             swapImages(swap);
         }
+
     }
 }

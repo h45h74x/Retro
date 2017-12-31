@@ -3,27 +3,22 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game_TestGame extends Game {
-    private int x = 0;
-    private int y = 0;
 
-    private UI_Screen screen;
+    private final UI_Screen screen;
     private UI_StatusBar bar;
 
-    private int STEP = 30;
+    private final int STEP = 30;
     private int direction = 0; // stop 0, l 1, r 2, u 3, d 4
 
-    private int speed = 1000;
-    private int refresh = 100;
-
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private TimerTask task;
     private TimerTask task2;
 
     private Rectangle character;
     private Rectangle obstacle;
 
-    public Game_TestGame(UI_Frame frame, String name) {
-        super(frame, name);
+    public Game_TestGame(String name) {
+        super(name);
         screen = new UI_Screen(this);
 
         setup();
@@ -38,6 +33,8 @@ public class Game_TestGame extends Game {
         bar = new UI_StatusBar(this, 3);
         add(bar, BorderLayout.PAGE_START);
 
+        int y = 0;
+        int x = 0;
         character = new Rectangle(x, y, 25, 25);
         obstacle = new Rectangle(x + STEP, y + STEP, 25, 25);
 
@@ -53,7 +50,9 @@ public class Game_TestGame extends Game {
                 fast();
             }
         };
+        int speed = 1000;
         timer.schedule(task, speed * 2, speed);
+        int refresh = 100;
         timer.schedule(task2, 0, refresh);
     }
 

@@ -3,14 +3,13 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public abstract class Menu extends JPanel {
-    protected Color c1 = Const.Colors.accent();
-    protected Color c2 = Const.Colors.accent_dark();
-
-    protected Launcher main;
-    protected JFrame frame;
-
-    protected KeyAdapter menuKeys = new KeyAdapter() {
+@SuppressWarnings({"Duplicates", "ConstantConditions"})
+abstract class Menu extends JPanel {
+    final JFrame frame;
+    private final Color c1 = Const.Colors.accent();
+    private final Color c2 = Const.Colors.accent_dark();
+    private final Launcher main;
+    private final KeyAdapter menuKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_W) key_W(true);
@@ -33,8 +32,9 @@ public abstract class Menu extends JPanel {
             else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
         }
     };
+    private boolean enableGradient = true;
 
-    protected Menu(Launcher main) {
+    Menu(Launcher main) {
         super();
         this.main = main;
         this.frame = main.getMainFrame();
@@ -48,19 +48,26 @@ public abstract class Menu extends JPanel {
         Launcher.con.println("Created Menu");
     }
 
-    public KeyAdapter getMenuKeys() {
+    KeyAdapter getMenuKeys() {
         return menuKeys;
     }
 
-    protected void back() {
+    void back() {
         Launcher.con.printlnInfo("Back");
-        main.startMenu(Const.Menues.MAIN_MENU);
+        Launcher.extStartMenu(Const.Menues.MAIN_MENU);
+    }
+
+    void disableGradient() {
+        enableGradient = false;
     }
 
     protected abstract void setup();
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        if (!enableGradient) return;
+
         int width = getWidth();
         int height = getHeight();
 

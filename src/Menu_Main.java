@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Menu_Main extends Menu {
-    protected Menu_Main(Launcher main) {
+    Menu_Main(Launcher main) {
         super(main);
     }
 
@@ -43,21 +41,13 @@ public class Menu_Main extends Menu {
         b1.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b1.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                start();
-            }
-        });
+        b1.addActionListener(e -> start());
 
         Input_RButton b2 = new Input_RButton(Const.Strings.credits);
         b2.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b2.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                credits();
-            }
-        });
+        b2.addActionListener(e -> credits());
 
         add(Box.createRigidArea(new Dimension(0, 100)));
         add(t1);
@@ -73,12 +63,12 @@ public class Menu_Main extends Menu {
 
     private void start() {
         Launcher.con.printlnInfo("Start");
-        main.startMenu(Const.Menues.GAME_SELECTOR);
+        Launcher.extStartMenu(Const.Menues.GAME_SELECTOR);
     }
 
     private void credits() {
         Launcher.con.printlnInfo("Credits");
-        main.startMenu(Const.Menues.CREDITS);
+        Launcher.extStartMenu(Const.Menues.CREDITS);
     }
 
     @Override
