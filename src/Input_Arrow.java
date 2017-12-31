@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 
 class Input_Arrow extends JButton {
 
@@ -19,7 +18,8 @@ class Input_Arrow extends JButton {
         else iconpath = Const.Strings.iconpaths[2];
 
         try {
-            Image img = ImageIO.read(new FileInputStream(iconpath));
+            Image img = ImageIO.read(getClass().getResourceAsStream(iconpath));
+            //Image img = ImageIO.read(new FileInputStream(iconpath));
             //noinspection SuspiciousNameCombination
             img = img.getScaledInstance(width, width, java.awt.Image.SCALE_SMOOTH);
 

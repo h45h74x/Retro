@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 @SuppressWarnings("ALL")
@@ -9,16 +8,17 @@ final class Const {
     }
 
     public static void LoadFonts() {
-
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         for (int i = 0; i < Strings.fontpaths.length; i++) {
             try {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, new File(Strings.fontpaths[i]));
+                Font font = Font.createFont(Font.TRUETYPE_FONT, classLoader.getResourceAsStream(Strings.fontpaths[i]));
+                //Font font = Font.createFont(Font.TRUETYPE_FONT, new File(Strings.fontpaths[i]));
                 Launcher.con.printlnWarning("loaded " + font.getFontName());
                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 ge.registerFont(font);
 
             } catch (FontFormatException | IOException e) {
-                Launcher.con.println(e.toString());
+                Launcher.con.printlnError(e.toString());
             }
         }
     }
@@ -82,6 +82,8 @@ final class Const {
     }
 
     public static final class Strings {
+        public static final String version = "v1.0";
+
         public static final String start = "Start";
         public static final String choose_game = "Choose Game";
         public static final String back = "Back";
@@ -97,11 +99,11 @@ final class Const {
         public static final String website_h45_link = "http://h45h74x.eu.org";
         @SuppressWarnings("SpellCheckingInspection")
         public static final String[] iconpaths = {
-                "res/icons/retro.png",
-                "res/icons/arrow_left.png",
-                "res/icons/arrow_right.png",
-                "res/icons/heart.png",
-                "res/icons/pause.png"
+                "icons/retro.png",
+                "icons/arrow_left.png",
+                "icons/arrow_right.png",
+                "icons/heart.png",
+                "icons/pause.png"
         };
         @SuppressWarnings("SpellCheckingInspection")
         public static final String creditText = "Retro is a collection of recoded, old games.\n" +
@@ -115,17 +117,16 @@ final class Const {
 
         @SuppressWarnings("SpellCheckingInspection")
         static final String[] fontpaths = {
-                "res/fonts/NotoSans-Black.ttf",
-                "res/fonts/NotoSans-Bold.ttf",
-                "res/fonts/PixelVerdana.ttf",
-                "res/fonts/VeraMono.ttf"
+                "fonts/NotoSans-Black.ttf",
+                "fonts/NotoSans-Bold.ttf",
+                "fonts/PixelVerdana.ttf",
+                "fonts/VeraMono.ttf"
         };
 
     }
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Menues {
-
         public static final String[] names = {
                 "Main Menu",
                 "Game Selector",
@@ -153,9 +154,9 @@ final class Const {
 
         @SuppressWarnings("SpellCheckingInspection")
         public static final String[] icons = {
-                "res/icons/spaceimpact.png",
-                "res/icons/testgame.png",
-                "res/icons/nogame.png",
+                "icons/spaceimpact.png",
+                "icons/testgame.png",
+                "icons/nogame.png",
         };
 
         public static final int SPACE_IMPACT = 0;
@@ -175,6 +176,8 @@ final class Const {
 
     public static final class SpaceImpact {
         @SuppressWarnings("SpellCheckingInspection")
+        public static final String version = "v0.1 beta";
+
         private static final String[] iconpaths = {
                 "heart",
                 "pause"

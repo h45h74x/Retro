@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 
 public class Menu_Games extends Menu {
     private static final JLabel t1 = new JLabel();
@@ -235,7 +234,8 @@ public class Menu_Games extends Menu {
 
             for (int i = 0; i < numgames; i++) {
                 try {
-                    icons[i] = ImageIO.read(new FileInputStream(Const.Games.icons[i]));
+                    icons[i] = ImageIO.read(getClass().getResourceAsStream(Const.Games.icons[i]));
+                    //icons[i] = ImageIO.read(new FileInputStream(Const.Games.icons[i]));
                 } catch (Exception ex) {
                     Launcher.con.printlnError(ex.toString());
                 }

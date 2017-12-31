@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 
 //Hearts    Boss bar    (Score &) Pause
 
@@ -77,8 +76,10 @@ class UI_StatusBar extends JPanel {
     private void loadImages() {
         icons = new ImageIcon[2];
         try {
-            icons[0] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[3])));
-            icons[1] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[4])));
+            icons[0] = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[3])));
+            icons[1] = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[4])));
+            //icons[0] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[3])));
+            //icons[1] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[4])));
         } catch (Exception ex) {
             Launcher.con.printlnError(ex.toString());
         }

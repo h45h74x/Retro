@@ -1,6 +1,5 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 class UI_Frame extends JFrame {
@@ -8,7 +7,8 @@ class UI_Frame extends JFrame {
     public UI_Frame(String name) {
         setTitle(name);
         try {
-            setIconImage(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[0])));
+            setIconImage(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[0])));
+            //setIconImage(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[0])));
         } catch (IOException e) {
             System.out.println(e.toString());
         }

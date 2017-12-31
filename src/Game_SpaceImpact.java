@@ -74,6 +74,7 @@ public class Game_SpaceImpact extends Game {
     @Override
     protected void pause() {
         Launcher.con.printlnInfo("Pause @ " + name);
+        Launcher.extStartMenu(Const.Menues.MAIN_MENU);
     }
 
     protected void resume() {
