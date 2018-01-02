@@ -34,6 +34,8 @@ final class Const {
 
     public static final class Colors {
         private static final String background = "#000000";
+        private static final String gray_dark = "#242424";
+        private static final String red = "#c10000";
         private static final String elements = "#444444";
         private static final String elements_light = "#b7b7b7";
         private static final String accent_dark = "#16222a"; //16222a
@@ -46,6 +48,14 @@ final class Const {
 
         public static Color transparent() {
             return new Color(0, 0, 0, 0);
+        }
+
+        public static Color gray_dark() {
+            return Color.decode(gray_dark);
+        }
+
+        public static Color red() {
+            return Color.decode(red);
         }
 
         public static Color transparentWhite() {
@@ -85,6 +95,12 @@ final class Const {
         public static final String version = "v1.0";
 
         public static final String start = "Start";
+        public static final String pause = "Pause";
+        public static final String return_to = "Return to";
+        public static final String game_over = "Game Over";
+        public static final String retry = "Retry";
+        public static final String back_to_mm = "Main Menu";
+        public static final String exit = "Exit game";
         public static final String choose_game = "Choose Game";
         public static final String back = "Back";
         public static final String name = "Retro";
@@ -130,26 +146,30 @@ final class Const {
         public static final String[] names = {
                 "Main Menu",
                 "Game Selector",
-                "Credits"
+                "Credits",
+                "Pause"
         };
 
         public static final String[] icons = {
                 "none",
                 "none",
-                "res/icons/options.png"
+                "res/icons/options.png",
+                "none"
         };
 
         public static final int MAIN_MENU = 0;
         public static final int GAME_SELECTOR = 1;
         public static final int OPTIONS = 2;
         public static final int CREDITS = 3;
+        public static final int PAUSE = 4;
+        public static final int GAME_OVER = 5;
     }
 
     public static final class Games {
         public static final String[] names = {
                 "Space Impact",
                 "Test Game",
-                "No Game"
+                "Flappy Bird"
         };
 
         @SuppressWarnings("SpellCheckingInspection")
@@ -162,10 +182,12 @@ final class Const {
         public static final int SPACE_IMPACT = 0;
         @SuppressWarnings("SpellCheckingInspection")
         public static final int TESTGAME = 1;
+        public static final int FLAPPY_BIRD = 2;
     }
 
     public static final class Numbers {
         public static final int width = 900;
+        public static final int con_width = 200;
         public static final int height = 600;
         public static final int selectorPos = 1;
         public static final int creditLength = 170;

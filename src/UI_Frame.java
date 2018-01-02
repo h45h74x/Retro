@@ -19,6 +19,7 @@ class UI_Frame extends JFrame {
         setLocationRelativeTo(null);
         if (Const.Bools.debug) setLocation(getX() - 200, getY());
 
+        setUndecorated(true);
         setResizable(false);
         setVisible(true);
         requestFocus();

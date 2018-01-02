@@ -7,12 +7,14 @@ import java.awt.*;
 class UI_StatusBar extends JPanel {
     private ImageIcon[] icons;
     private JLabel[] hearts;
+    private JLabel scoreLabel;
     private Game parent;
 
     private final Color bg = Const.Colors.gray_light();
 
     private final int imageSize = 15;
     private int heartCount = 0;
+    private int score = 0;
     private final int yPadding = 10;
 
     private final int height = imageSize + yPadding;
@@ -34,6 +36,10 @@ class UI_StatusBar extends JPanel {
         setup();
     }
 
+    public int getHeight() {
+        return height;
+    }
+
     private void setup() {
         BorderLayout layout = new BorderLayout();
         layout.setVgap(yPadding);
@@ -43,7 +49,6 @@ class UI_StatusBar extends JPanel {
 
         setBackground(bg);
         setPreferredSize(new Dimension(width, height));
-
 
         /*label = new JLabel();
         add(label, BorderLayout.CENTER);*/
@@ -61,7 +66,6 @@ class UI_StatusBar extends JPanel {
         }
         add(heartPanel, BorderLayout.LINE_START);
 
-
         JButton pause = new JButton(icons[1]);
         pause.addActionListener(e -> pause());
         pause.setContentAreaFilled(false);
@@ -70,7 +74,17 @@ class UI_StatusBar extends JPanel {
         pause.setBorderPainted(false);
         pause.setForeground(bg);
         pause.setBackground(bg);
-        add(pause, BorderLayout.LINE_END);
+
+        scoreLabel = new JLabel(String.valueOf(score));
+        scoreLabel.setFont(new Font("PixelVerdana", Font.PLAIN, 8));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(bg);
+        rightPanel.setLayout(new BorderLayout());
+        rightPanel.add(pause, BorderLayout.LINE_END);
+        rightPanel.add(scoreLabel, BorderLayout.LINE_START);
+
+        add(rightPanel, BorderLayout.LINE_END);
     }
 
     private void loadImages() {
@@ -85,8 +99,13 @@ class UI_StatusBar extends JPanel {
         }
     }
 
-    int getHeartCount() {
-        return heartCount;
+    public void increaseScore(int score) {
+        this.score = score;
+        scoreLabel.setText(String.valueOf(this.score));
+    }
+
+    public void increaseScore() {
+        increaseScore(1);
     }
 
     private void setHeartCount(int num) {
@@ -96,6 +115,8 @@ class UI_StatusBar extends JPanel {
     void loseHeart() {
         hearts[heartCount - 1].setVisible(false);
         setHeartCount(heartCount - 1);
+
+        if (heartCount <= 0) parent.game_over();
     }
 
     void gainHeart() {

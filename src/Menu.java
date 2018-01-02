@@ -1,14 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 @SuppressWarnings({"Duplicates", "ConstantConditions"})
 abstract class Menu extends JPanel {
-    final JFrame frame;
-    private final Color c1 = Const.Colors.accent();
-    private final Color c2 = Const.Colors.accent_dark();
-    private final Launcher main;
     private final KeyAdapter menuKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -32,13 +27,32 @@ abstract class Menu extends JPanel {
             else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
         }
     };
+
+    protected Color black = Const.Colors.elements();
+    UI_Frame frame;
+    Launcher main;
+    String activegame;
     private boolean enableGradient = true;
+    private Color c1 = Const.Colors.accent();
+    private Color c2 = Const.Colors.accent_dark();
+    private Point initialClick;
 
     Menu(Launcher main) {
         super();
         this.main = main;
         this.frame = main.getMainFrame();
+        create();
+    }
 
+    Menu(Launcher main, String activegame) {
+        super();
+        this.main = main;
+        this.frame = main.getMainFrame();
+        this.activegame = activegame;
+        create();
+    }
+
+    private void create() {
         setBackground(Const.Colors.accent_dark());
         setup();
         setOpaque(true);
@@ -46,6 +60,30 @@ abstract class Menu extends JPanel {
 
         Launcher.con.spacer("-");
         Launcher.con.println("Created Menu");
+
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int thisX = frame.getLocation().x;
+                int thisY = frame.getLocation().y;
+
+                int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+                int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                frame.setLocation(X, Y);
+                Launcher.con.setLocation(X + frame.getWidth(), Y);
+            }
+        });
+
     }
 
     KeyAdapter getMenuKeys() {
@@ -59,6 +97,12 @@ abstract class Menu extends JPanel {
 
     void disableGradient() {
         enableGradient = false;
+    }
+
+    void redGradient() {
+        c1 = Const.Colors.red();
+        c2 = Const.Colors.gray_dark();
+        black = Const.Colors.accent_dark();
     }
 
     protected abstract void setup();

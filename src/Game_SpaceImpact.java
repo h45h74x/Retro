@@ -12,15 +12,8 @@ public class Game_SpaceImpact extends Game {
         return null;
     }
 
-    private void setup() {
-        setLayout(new BorderLayout());
+    protected void setup() {
 
-        UI_Screen screen = new UI_Screen(this);
-        screen.setBackground(Const.SpaceImpact.background());
-        add(screen, BorderLayout.CENTER);
-
-        UI_StatusBar bar = new UI_StatusBar(this, 3);
-        add(bar, BorderLayout.PAGE_START);
     }
 
 
@@ -71,8 +64,9 @@ public class Game_SpaceImpact extends Game {
         Launcher.con.printlnInfo("Killed @ " + name);
     }
 
+
     @Override
-    protected void pause() {
+    protected void halt() {
         Launcher.con.printlnInfo("Pause @ " + name);
         Launcher.extStartMenu(Const.Menues.MAIN_MENU);
     }

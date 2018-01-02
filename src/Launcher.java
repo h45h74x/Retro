@@ -3,6 +3,7 @@ class Launcher {
     public static Debug_Console con;
     private static Launcher main;
 
+    private static int lastGameIndex;
     private Game game;
     private Menu menu;
     private final UI_Frame mainFrame;
@@ -28,6 +29,11 @@ class Launcher {
         main.startGame(index);
     }
 
+    static void extStartGame() {
+        if (main == null) return;
+        main.startGame(lastGameIndex);
+    }
+
     static void home() {
         if (main != null) main.startMenu(0);
     }
@@ -36,26 +42,8 @@ class Launcher {
         System.exit(0);
     }
 
-    private void detach() {
-        if (game != null) {
-            mainFrame.removeKeyListener(game.getGameKeys());
-            mainFrame.remove(game);
-            game.kill();
-            game.setVisible(false);
-            game.validate();
-            game = null;
-        }
-        if (menu != null) {
-            mainFrame.removeKeyListener(menu.getMenuKeys());
-            mainFrame.remove(menu);
-            menu.setVisible(false);
-            menu.validate();
-            menu = null;
-        }
-        mainFrame.repaint();
-        mainFrame.revalidate();
-        mainFrame.setVisible(true);
-        mainFrame.requestFocus();
+    static Launcher getMain() {
+        return main;
     }
 
     private void attach() {
@@ -77,6 +65,29 @@ class Launcher {
         mainFrame.requestFocus();
     }
 
+    private void detach() {
+        if (game != null) {
+            mainFrame.removeKeyListener(game.getGameKeys());
+            mainFrame.remove(game);
+            con.printlnWarning("Killed " + game.getName());
+            game.kill();
+            game.setVisible(false);
+            game.validate();
+            game = null;
+        }
+        if (menu != null) {
+            mainFrame.removeKeyListener(menu.getMenuKeys());
+            mainFrame.remove(menu);
+            menu.setVisible(false);
+            menu.validate();
+            menu = null;
+        }
+        mainFrame.repaint();
+        mainFrame.revalidate();
+        mainFrame.setVisible(true);
+        mainFrame.requestFocus();
+    }
+
     private void startMenu(int index) {
         detach();
         switch (index) {
@@ -85,6 +96,12 @@ class Launcher {
                 break;
             case Const.Menues.CREDITS:
                 menu = new Menu_Credits(this);
+                break;
+            case Const.Menues.PAUSE:
+                menu = new Menu_Pause(this);
+                break;
+            case Const.Menues.GAME_OVER:
+                menu = new Menu_GameOver(this);
                 break;
             default: //MainMenu
                 menu = new Menu_Main(this);
@@ -95,12 +112,16 @@ class Launcher {
 
     private void startGame(int index) {
         detach();
+        lastGameIndex = index;
         switch (index) {
             case Const.Games.SPACE_IMPACT:
                 game = new Game_SpaceImpact(Const.Games.names[index]);
                 break;
             case Const.Games.TESTGAME:
                 game = new Game_TestGame(Const.Games.names[index]);
+                break;
+            case Const.Games.FLAPPY_BIRD:
+                game = new Game_FlappyBird(Const.Games.names[index]);
                 break;
             default: //MainMenu
                 menu = new Menu_Main(this);

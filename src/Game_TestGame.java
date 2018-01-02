@@ -3,57 +3,31 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game_TestGame extends Game {
-
-    private final UI_Screen screen;
-    private UI_StatusBar bar;
-
     private final int STEP = 30;
     private int direction = 0; // stop 0, l 1, r 2, u 3, d 4
 
-    private final Timer timer = new Timer();
+    private Timer timer;
     private TimerTask task;
     private TimerTask task2;
 
     private Rectangle character;
     private Rectangle obstacle;
 
-    public Game_TestGame(String name) {
+    Game_TestGame(String name) {
         super(name);
-        screen = new UI_Screen(this);
-
         setup();
-        slow();
     }
 
-    private void setup() {
-        setLayout(new BorderLayout());
-
-        add(screen, BorderLayout.CENTER);
-
-        bar = new UI_StatusBar(this, 3);
-        add(bar, BorderLayout.PAGE_START);
-
+    protected void setup() {
         int y = 0;
         int x = 0;
         character = new Rectangle(x, y, 25, 25);
         obstacle = new Rectangle(x + STEP, y + STEP, 25, 25);
 
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                slow();
-            }
-        };
-        task2 = new TimerTask() {
-            @Override
-            public void run() {
-                fast();
-            }
-        };
-        int speed = 1000;
-        timer.schedule(task, speed * 2, speed);
-        int refresh = 100;
-        timer.schedule(task2, 0, refresh);
+
+        resume();
+
+        slow();
     }
 
     private void fast() {
@@ -78,20 +52,18 @@ public class Game_TestGame extends Game {
     }
 
     private void checkCollision() {
-        Launcher.con.printlnInfo("Tock");
-        if (character.x == obstacle.x) {
+        Launcher.con.printlnInfo(character.x + " " + obstacle.x);
+        if (character.x == obstacle.x && character.y == obstacle.y) {
             screen.setForeground(Color.red);
             Launcher.con.printlnWarning("Collision");
             bar.loseHeart();
-            character.x = character.x - obstacle.width;
+            character.x = character.x - STEP;
         } else {
             screen.setForeground(Const.Colors.accent_light());
         }
     }
 
     private void slow() {
-        Launcher.con.printlnInfo("Tick");
-
         obstacle.x += STEP;
     }
 
@@ -104,28 +76,23 @@ public class Game_TestGame extends Game {
     }
 
     public void key_W(boolean pressed) {
-        Launcher.con.printInfo("W ");
         if (pressed) direction = 3;
     }
 
     public void key_A(boolean pressed) {
-        Launcher.con.printInfo("A ");
         if (pressed) direction = 1;
     }
 
     public void key_S(boolean pressed) {
-        Launcher.con.printInfo("S ");
         if (pressed) direction = 4;
     }
 
     public void key_D(boolean pressed) {
-        Launcher.con.printInfo("D ");
         if (pressed) direction = 2;
     }
 
     public void key_ESC(boolean pressed) {
-        Launcher.con.printInfo("ESC ");
-        if (pressed) Launcher.home();
+        if (pressed) pause();
     }
 
     public void key_SPACE(boolean pressed) {
@@ -138,9 +105,29 @@ public class Game_TestGame extends Game {
         task2.cancel();
     }
 
-    public void pause() {
+    protected void halt() {
+        timer.cancel();
+        task.cancel();
+        task2.cancel();
     }
 
     public void resume() {
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                slow();
+            }
+        };
+        task2 = new TimerTask() {
+            @Override
+            public void run() {
+                fast();
+            }
+        };
+        int speed = 1000;
+        timer.schedule(task, speed * 2, speed);
+        int refresh = 100;
+        timer.schedule(task2, 0, refresh);
     }
 }

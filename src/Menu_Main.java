@@ -13,7 +13,7 @@ public class Menu_Main extends Menu {
 
         JLabel t1 = new JLabel();
         t1.setText(Const.Strings.greeting);
-        t1.setForeground(Const.Colors.elements());
+        t1.setForeground(black);
         t1.setFont(new Font("Noto Sans", Font.PLAIN, 72));
         t1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -62,12 +62,10 @@ public class Menu_Main extends Menu {
     }
 
     private void start() {
-        Launcher.con.printlnInfo("Start");
         Launcher.extStartMenu(Const.Menues.GAME_SELECTOR);
     }
 
     private void credits() {
-        Launcher.con.printlnInfo("Credits");
         Launcher.extStartMenu(Const.Menues.CREDITS);
     }
 

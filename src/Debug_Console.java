@@ -37,9 +37,10 @@ public class Debug_Console extends JFrame {
         scroll.getVerticalScrollBar().addAdjustmentListener(e -> e.getAdjustable().setValue(e.getAdjustable().getMaximum()));
 
         countUp();
-        setBounds(x + w, y, 200, h);
+        setBounds(x + w, y, Const.Numbers.con_width, h);
         add(scroll);
 
+        setResizable(false);
         display();
     }
 

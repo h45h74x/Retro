@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("Duplicates")
 abstract class Game extends JPanel {
     final String name;
+    Menu_Pause pauseMenu;
     private final KeyAdapter gameKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -29,10 +30,28 @@ abstract class Game extends JPanel {
             else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
         }
     };
+    Menu_GameOver overMenu;
+    UI_Screen screen;
+    UI_StatusBar bar;
+    private UI_Frame frame;
+    private boolean isPaused = false;
 
     Game(String name) {
         super();
         this.name = name;
+        this.frame = Launcher.getMain().getMainFrame();
+
+        setLayout(new BorderLayout());
+
+        pauseMenu = new Menu_Pause(this);
+        overMenu = new Menu_GameOver(this);
+
+        screen = new UI_Screen(this);
+        add(screen, BorderLayout.CENTER);
+
+        bar = new UI_StatusBar(this, 3);
+        add(bar, BorderLayout.PAGE_START);
+
         Launcher.con.spacer("-");
         Launcher.con.println("created " + name);
     }
@@ -61,7 +80,44 @@ abstract class Game extends JPanel {
 
     protected abstract void kill();
 
-    protected abstract void pause();
+    protected void game_over() {
+        halt();
+        Launcher.con.printlnWarning("Game Over");
+        isPaused = true;
+        remove(screen);
+        remove(bar);
+        add(overMenu, BorderLayout.CENTER);
+        frame.removeKeyListener(getGameKeys());
+        frame.addKeyListener(overMenu.getMenuKeys());
+        halt();
+        revalidate();
+        repaint();
+        frame.requestFocus();
+    }
+
+    protected void pause() {
+        if (isPaused) {
+            isPaused = false;
+            remove(pauseMenu);
+            add(screen, BorderLayout.CENTER);
+            frame.removeKeyListener(pauseMenu.getMenuKeys());
+            frame.addKeyListener(getGameKeys());
+            resume();
+        } else {
+            Launcher.con.printlnWarning("Pause");
+            isPaused = true;
+            remove(screen);
+            add(pauseMenu, BorderLayout.CENTER);
+            frame.removeKeyListener(getGameKeys());
+            frame.addKeyListener(pauseMenu.getMenuKeys());
+            halt();
+        }
+        revalidate();
+        repaint();
+        frame.requestFocus();
+    }
+
+    protected abstract void halt();
 
     protected abstract void resume();
 }
