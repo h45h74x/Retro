@@ -5,10 +5,16 @@ import java.awt.event.KeyEvent;
 
 @SuppressWarnings("Duplicates")
 abstract class Game extends JPanel {
+
     final String name;
-    protected String gameOverSound = "none";
-    protected String backgroundMusic = "none";
-    Menu_Pause pauseMenu;
+    private String gameOverSound = "none";
+    private String backgroundMusic = "none";
+
+    private boolean isPaused = false;
+
+    private Menu_Pause pauseMenu;
+    private Menu_GameOver overMenu;
+
     private final KeyAdapter gameKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -32,11 +38,10 @@ abstract class Game extends JPanel {
             else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
         }
     };
-    Menu_GameOver overMenu;
+
     UI_Screen screen;
     UI_StatusBar bar;
     private UI_Frame frame;
-    private boolean isPaused = false;
 
     Game(String name) {
         super();
@@ -82,23 +87,23 @@ abstract class Game extends JPanel {
 
     protected abstract void kill();
 
-    protected void setGameOverSound(String path) {
+    void setGameOverSound(String path) {
         this.gameOverSound = path;
     }
 
-    protected void setBackgroundMusic(String path) {
+    void setBackgroundMusic(String path) {
         this.backgroundMusic = path;
     }
 
-    protected void startMusic() {
+    void startBgMusic() {
         if (!backgroundMusic.equals("none")) {
-            Const.playSound(backgroundMusic);
+            Const.playBgSound(backgroundMusic);
         }
     }
 
-    protected void game_over() {
+    void game_over() {
         if (!gameOverSound.equals("none")) {
-            Const.stopSound(backgroundMusic);
+            Const.stopBgSound();
             Const.playSound(gameOverSound);
         }
 
@@ -116,10 +121,10 @@ abstract class Game extends JPanel {
         frame.requestFocus();
     }
 
-    protected void pause() {
+    void pause() {
         if (isPaused) { // Resume
             if (!backgroundMusic.equals("none")) {
-                Const.playSound(backgroundMusic);
+                Const.playBgSound(backgroundMusic);
             }
             isPaused = false;
             remove(pauseMenu);
@@ -128,7 +133,9 @@ abstract class Game extends JPanel {
             frame.addKeyListener(getGameKeys());
             resume();
         } else { // Pause
-            Const.stopSound(backgroundMusic);
+            if (!backgroundMusic.equals("none")) {
+                Const.stopBgSound();
+            }
             isPaused = true;
             remove(screen);
             add(pauseMenu, BorderLayout.CENTER);

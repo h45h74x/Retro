@@ -55,6 +55,12 @@ public class Menu_Main extends Menu {
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
         b2.addActionListener(e -> credits());
 
+        Input_RButton b3 = new Input_RButton(Const.Strings.exit);
+        b3.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
+        b3.setFont(new Font("Noto Sans", Font.PLAIN, 20));
+        b3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b3.addActionListener(e -> Launcher.kill());
+
         add(Box.createRigidArea(new Dimension(0, 100)));
         add(t1);
         add(tf1);
@@ -62,6 +68,8 @@ public class Menu_Main extends Menu {
         add(b1);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(b2);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(b3);
 
         tf1.requestFocus();
         tf1.setCaretPosition(tf1.getText().length());

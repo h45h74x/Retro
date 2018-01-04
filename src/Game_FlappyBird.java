@@ -19,6 +19,7 @@ public class Game_FlappyBird extends Game {
     private int xStep = -7;
     private int obst_speed = 35;
     private int char_speed = 10;
+    private int startdelay = 1500;
 
     private int distance = (int) ((width / maxObstacles));
 
@@ -35,7 +36,7 @@ public class Game_FlappyBird extends Game {
     protected void setup() {
         setGameOverSound(Const.SpaceImpact.soundpaths[2]);
         setBackgroundMusic(Const.SpaceImpact.soundpaths[0]);
-        startMusic();
+        startBgMusic();
 
         character = new Moving_Entity(charactersize, charactersize, Const.SpaceImpact.iconpaths[0]);
         character.setLocation(charactersize / 2, height / 2);
@@ -132,8 +133,7 @@ public class Game_FlappyBird extends Game {
             if (yCond) {
                 bar.increaseScore();
                 Const.playSound(Const.SpaceImpact.soundpaths[1]);
-            }
-            else bar.loseHeart();
+            } else bar.loseHeart();
             newObstacle();
         }
 
@@ -204,7 +204,9 @@ public class Game_FlappyBird extends Game {
                 fast();
             }
         };
-        timer.schedule(slow, obst_speed * 2, obst_speed);
+        timer.schedule(slow, startdelay, obst_speed);
         timer.schedule(fast, 0, char_speed);
+
+        startdelay = 250;
     }
 }

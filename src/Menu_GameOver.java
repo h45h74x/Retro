@@ -74,10 +74,11 @@ public class Menu_GameOver extends Menu {
 
     @Override
     protected void key_SPACE(boolean pressed) {
+        if (pressed) Launcher.extStartGame();
     }
 
     @Override
     protected void key_ESC(boolean pressed) {
-        if (pressed) parent.pause();
+        if (pressed) Launcher.home();
     }
 }
