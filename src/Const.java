@@ -200,9 +200,9 @@ final class Const {
         @SuppressWarnings("SpellCheckingInspection")
         public static final String version = "v0.1 beta";
 
-        private static final String[] iconpaths = {
-                "heart",
-                "pause"
+        public static final String[] iconpaths = {
+                "icons/SpaceImpact/ship.png",
+                "enemy1"
         };
 
         private static final String background = "#78a57f";

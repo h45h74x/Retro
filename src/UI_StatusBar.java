@@ -2,8 +2,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
-//Hearts    Boss bar    (Score &) Pause
-
 class UI_StatusBar extends JPanel {
     private ImageIcon[] icons;
     private JLabel[] hearts;
@@ -12,6 +10,8 @@ class UI_StatusBar extends JPanel {
 
     private final Color bg = Const.Colors.gray_light();
 
+    private Timer timer;
+
     private final int imageSize = 15;
     private int heartCount = 0;
     private int score = 0;
@@ -19,15 +19,6 @@ class UI_StatusBar extends JPanel {
 
     private final int height = imageSize + yPadding;
     private final int width = Const.Numbers.width;
-
-    private UI_StatusBar() {
-    }
-
-    UI_StatusBar(Game parent) {
-        super();
-        this.parent = parent;
-        setup();
-    }
 
     UI_StatusBar(Game parent, int hearts) {
         super();
@@ -40,18 +31,31 @@ class UI_StatusBar extends JPanel {
         return height;
     }
 
+    private void changeColor(int status) {
+        switch (status) {
+            case 1:
+                setBackground(Color.green);
+                break;
+            case 2:
+                setBackground(Color.red);
+                break;
+            default:
+                setBackground(bg);
+        }
+        timer.start();
+    }
+
     private void setup() {
+        timer = new Timer(500, arg0 -> changeColor(0));
+        timer.setRepeats(false); // Only execute once
+
         BorderLayout layout = new BorderLayout();
         layout.setVgap(yPadding);
         setLayout(layout);
+        setPreferredSize(new Dimension(width, height));
+        changeColor(0);
 
         loadImages();
-
-        setBackground(bg);
-        setPreferredSize(new Dimension(width, height));
-
-        /*label = new JLabel();
-        add(label, BorderLayout.CENTER);*/
 
         JPanel heartPanel = new JPanel();
         heartPanel.setBackground(bg);
@@ -99,29 +103,28 @@ class UI_StatusBar extends JPanel {
         }
     }
 
-    public void increaseScore(int score) {
-        this.score = score;
+    private void increaseScore(int score) {
+        changeColor(1);
+
+        this.score += score;
         scoreLabel.setText(String.valueOf(this.score));
     }
 
-    public void increaseScore() {
+    void increaseScore() {
         increaseScore(1);
     }
 
-    private void setHeartCount(int num) {
-        heartCount = num;
-    }
-
     void loseHeart() {
+        changeColor(2);
+
         hearts[heartCount - 1].setVisible(false);
-        setHeartCount(heartCount - 1);
+        heartCount -= 1;
 
         if (heartCount <= 0) parent.game_over();
     }
 
-    void gainHeart() {
-        setHeartCount(heartCount + 1);
-        hearts[heartCount].setVisible(true);
+    private void setHeartCount(int num) {
+        heartCount = num;
     }
 
     private void pause() {
