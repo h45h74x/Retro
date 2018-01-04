@@ -1,7 +1,13 @@
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 public class Menu_Main extends Menu {
     Menu_Main(Launcher main) {
@@ -18,7 +24,7 @@ public class Menu_Main extends Menu {
         t1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         Input_TextField tf1 = new Input_TextField();
-        tf1.setText(Const.Variables.username);
+        tf1.setText(Const.Strings.username);
         tf1.setFont(new Font("Noto Sans", Font.PLAIN, 40));
         tf1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tf1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -31,9 +37,9 @@ public class Menu_Main extends Menu {
             }
 
             public void keyReleased(KeyEvent e) {
-                if (!tf1.getText().equals("")) Const.Variables.username = tf1.getText();
-                else Const.Variables.username = "Player";
-                Launcher.con.printlnInfo(Const.Variables.username);
+                if (!tf1.getText().equals("")) Const.Strings.username = tf1.getText();
+                else Const.Strings.username = "Player";
+                Launcher.con.printlnInfo(Const.Strings.username);
             }
         });
 
@@ -69,9 +75,26 @@ public class Menu_Main extends Menu {
         Launcher.extStartMenu(Const.Menues.CREDITS);
     }
 
+    public void playSound(String path) {
+        AudioPlayer MGP = AudioPlayer.player;
+        AudioStream BGM;
+        AudioData MD;
+        ContinuousAudioDataStream loop = null;
+
+        try {
+            BGM = new AudioStream(getClass().getResourceAsStream(path));
+            MD = BGM.getData();
+            loop = new ContinuousAudioDataStream(MD);
+        } catch (IOException error) {
+            error.printStackTrace();
+        }
+
+        MGP.start(loop);
+    }
+
+
     @Override
     protected void key_W(boolean pressed) {
-
     }
 
     @Override

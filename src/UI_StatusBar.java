@@ -59,7 +59,7 @@ class UI_StatusBar extends JPanel {
 
         JPanel heartPanel = new JPanel();
         heartPanel.setBackground(bg);
-        JLabel username = new JLabel(Const.Variables.username);
+        JLabel username = new JLabel(Const.Strings.username);
         username.setFont(new Font("PixelVerdana", Font.PLAIN, 8));
         heartPanel.add(username);
         hearts = new JLabel[heartCount];
@@ -121,6 +121,10 @@ class UI_StatusBar extends JPanel {
         heartCount -= 1;
 
         if (heartCount <= 0) parent.game_over();
+    }
+
+    public int getScore() {
+        return score;
     }
 
     private void setHeartCount(int num) {

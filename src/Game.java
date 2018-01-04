@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 @SuppressWarnings("Duplicates")
 abstract class Game extends JPanel {
     final String name;
+    protected String gameOverSound = "none";
+    protected String backgroundMusic = "none";
     Menu_Pause pauseMenu;
     private final KeyAdapter gameKeys = new KeyAdapter() {
         @Override
@@ -80,7 +82,26 @@ abstract class Game extends JPanel {
 
     protected abstract void kill();
 
+    protected void setGameOverSound(String path) {
+        this.gameOverSound = path;
+    }
+
+    protected void setBackgroundMusic(String path) {
+        this.backgroundMusic = path;
+    }
+
+    protected void startMusic() {
+        if (!backgroundMusic.equals("none")) {
+            Const.playSound(backgroundMusic);
+        }
+    }
+
     protected void game_over() {
+        if (!gameOverSound.equals("none")) {
+            Const.stopSound(backgroundMusic);
+            Const.playSound(gameOverSound);
+        }
+
         halt();
         Launcher.con.printlnWarning("Game Over");
         isPaused = true;
@@ -96,15 +117,18 @@ abstract class Game extends JPanel {
     }
 
     protected void pause() {
-        if (isPaused) {
+        if (isPaused) { // Resume
+            if (!backgroundMusic.equals("none")) {
+                Const.playSound(backgroundMusic);
+            }
             isPaused = false;
             remove(pauseMenu);
             add(screen, BorderLayout.CENTER);
             frame.removeKeyListener(pauseMenu.getMenuKeys());
             frame.addKeyListener(getGameKeys());
             resume();
-        } else {
-            Launcher.con.printlnWarning("Pause");
+        } else { // Pause
+            Const.stopSound(backgroundMusic);
             isPaused = true;
             remove(screen);
             add(pauseMenu, BorderLayout.CENTER);

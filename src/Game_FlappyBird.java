@@ -14,7 +14,7 @@ public class Game_FlappyBird extends Game {
     private int maxHoleSize = (int) (charactersize * 3);
     private int minHoleSize = (int) (charactersize * 2);
 
-    private int maxObstacles = 5;
+    private int maxObstacles = 4;
 
     private int xStep = -7;
     private int obst_speed = 35;
@@ -33,6 +33,10 @@ public class Game_FlappyBird extends Game {
     }
 
     protected void setup() {
+        setGameOverSound(Const.SpaceImpact.soundpaths[2]);
+        setBackgroundMusic(Const.SpaceImpact.soundpaths[0]);
+        startMusic();
+
         character = new Moving_Entity(charactersize, charactersize, Const.SpaceImpact.iconpaths[0]);
         character.setLocation(charactersize / 2, height / 2);
         character.setBounds(0, width, 0, height - charactersize);
@@ -125,7 +129,10 @@ public class Game_FlappyBird extends Game {
         boolean yCond = (character.getY() >= holes[0].getY()) && ((character.getY() + character.getHeight()) <= (holes[0].getY() + holes[0].getHeight()));
 
         if (xCond) {
-            if (yCond) bar.increaseScore();
+            if (yCond) {
+                bar.increaseScore();
+                Const.playSound(Const.SpaceImpact.soundpaths[1]);
+            }
             else bar.loseHeart();
             newObstacle();
         }

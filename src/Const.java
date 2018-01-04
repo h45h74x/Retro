@@ -1,14 +1,18 @@
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import java.awt.*;
 import java.io.IOException;
 
 @SuppressWarnings("ALL")
 final class Const {
 
+    private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
     private Const() {
     }
 
     public static void LoadFonts() {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         for (int i = 0; i < Strings.fontpaths.length; i++) {
             try {
                 Font font = Font.createFont(Font.TRUETYPE_FONT, classLoader.getResourceAsStream(Strings.fontpaths[i]));
@@ -23,13 +27,25 @@ final class Const {
         }
     }
 
-    public static class Variables {
-        public static String username = "Player";
+    public static void playSound(String path) {
+        AudioStream audioStream = null;
+        try {
+            audioStream = new AudioStream(classLoader.getResourceAsStream(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AudioPlayer.player.start(audioStream);
+    }
+
+    public static void stopSound(String path) {
+        AudioPlayer.player.stop(classLoader.getResourceAsStream(path));
     }
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
-        public static final boolean debug = true;
+        public static final boolean debug = false;
+        public static final boolean sounds = true;
+        public static final boolean music = true;
     }
 
     public static final class Colors {
@@ -93,6 +109,8 @@ final class Const {
 
     public static final class Strings {
         public static final String version = "v1.0";
+
+        public static String username = "Player";
 
         public static final String start = "Start";
         public static final String pause = "Pause";
@@ -203,6 +221,12 @@ final class Const {
         public static final String[] iconpaths = {
                 "icons/SpaceImpact/ship.png",
                 "enemy1"
+        };
+
+        public static final String[] soundpaths = {
+                "sounds/SpaceImpact/Cologne_1983.wav",
+                "sounds/SpaceImpact/Beep.wav",
+                "sounds/SpaceImpact/GameOver.wav"
         };
 
         private static final String background = "#78a57f";

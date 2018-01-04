@@ -9,3 +9,6 @@
 
 - Smooth Movement
     https://www.youtube.com/watch?v=L5GJ-i_6uGQ
+
+- No framedrops
+    https://gamedev.stackexchange.com/questions/97933/framerate-is-affecting-speed-of-object

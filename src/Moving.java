@@ -50,7 +50,7 @@ public abstract class Moving {
         } catch (Exception ex) {
             Launcher.con.printlnError(ex.toString());
         }
-        icon = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        icon = icon.getScaledInstance(width, height - 5, Image.SCALE_SMOOTH);
     }
 
     void tick() {
