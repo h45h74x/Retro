@@ -126,8 +126,8 @@ public class Menu_Games extends Menu {
         private final Menu_Games parent;
         private final int height;
 
-        private final int imageSize = 160;
-        private final int imageSizeSmall = 100;
+        private final int imageSize = 180;
+        private final int imageSizeSmall = 120;
         private final int yPadding = 50;
         private final int yPos = 500;
 

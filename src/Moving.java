@@ -71,6 +71,14 @@ public abstract class Moving {
         return (int) x;
     }
 
+    void setX(int x) {
+        this.x = x;
+    }
+
+    void setY(int y) {
+        this.y = y;
+    }
+
     int getY() {
         return (int) y;
     }

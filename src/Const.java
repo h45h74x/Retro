@@ -57,13 +57,14 @@ final class Const {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
-        public static final boolean debug = false;
+        public static final boolean debug = true;
         public static final boolean sounds = true;
         public static final boolean music = true;
     }
 
     public static final class Colors {
         private static final String background = "#000000";
+        private static final String lcd = "#b0cab0";
         private static final String gray_dark = "#242424";
         private static final String red = "#c10000";
         private static final String elements = "#444444";
@@ -82,6 +83,10 @@ final class Const {
 
         public static Color gray_dark() {
             return Color.decode(gray_dark);
+        }
+
+        public static Color lcd() {
+            return Color.decode(lcd);
         }
 
         public static Color red() {
@@ -201,20 +206,20 @@ final class Const {
         public static final String[] names = {
                 "Space Impact",
                 "Test Game",
-                "Flappy Bird"
+                "SpaceDodge"
         };
 
         @SuppressWarnings("SpellCheckingInspection")
         public static final String[] icons = {
                 "icons/spaceimpact.png",
                 "icons/testgame.png",
-                "icons/nogame.png",
+                "icons/spacedodge.png",
         };
 
         public static final int SPACE_IMPACT = 0;
         @SuppressWarnings("SpellCheckingInspection")
         public static final int TESTGAME = 1;
-        public static final int FLAPPY_BIRD = 2;
+        public static final int SPACE_DODGE = 2;
     }
 
     public static final class Numbers {
@@ -232,24 +237,39 @@ final class Const {
         @SuppressWarnings("SpellCheckingInspection")
         public static final String version = "v0.1 beta";
 
+        public static final String bg = "icons/SpaceImpact/bg.jpg";
+
         public static final String[] iconpaths = {
-                "icons/SpaceImpact/ship.png",
-                "enemy1"
+                "icons/SpaceImpact/ship.png"
         };
 
         public static final String[] soundpaths = {
-                "sounds/SpaceImpact/Cologne_1983.wav",
+                "sounds/SpaceImpact/bg.wav",
                 "sounds/SpaceImpact/Beep.wav",
                 "sounds/SpaceImpact/GameOver.wav"
         };
 
-        private static final String background = "#78a57f";
-
         private SpaceImpact() {
         }
+    }
 
-        public static Color background() {
-            return Color.decode(background);
+    public static final class SpaceDodge {
+        @SuppressWarnings("SpellCheckingInspection")
+        public static final String version = "v0.1 beta";
+
+        public static final String bg = "icons/SpaceDodge/bg.jpg";
+
+        public static final String[] iconpaths = {
+                "icons/SpaceDodge/ship.png"
+        };
+
+        public static final String[] soundpaths = {
+                "sounds/SpaceDodge/bg.wav",
+                "sounds/SpaceDodge/Beep.wav",
+                "sounds/SpaceDodge/GameOver.wav"
+        };
+
+        private SpaceDodge() {
         }
     }
 }

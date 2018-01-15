@@ -4,7 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("Duplicates")
-abstract class Game extends JPanel {
+abstract class Game extends JPanel /*implements Runnable*/ {
 
     final String name;
     private String gameOverSound = "none";

@@ -1,5 +1,7 @@
 class Launcher {
 
+    private Thread gameThread;
+
     public static Debug_Console con;
     private static Launcher main;
 
@@ -48,6 +50,9 @@ class Launcher {
 
     private void attach() {
         if (game != null) {
+            /*gameThread = new Thread(game);
+            gameThread.start();*/
+
             game.setVisible(true);
             game.revalidate();
             mainFrame.add(game);
@@ -74,6 +79,10 @@ class Launcher {
             game.setVisible(false);
             game.validate();
             game = null;
+            /*if (gameThread != null) {
+                gameThread.stop();
+                gameThread = null;
+            }*/
         }
         if (menu != null) {
             mainFrame.removeKeyListener(menu.getMenuKeys());
@@ -120,8 +129,8 @@ class Launcher {
             case Const.Games.TESTGAME:
                 game = new Game_TestGame(Const.Games.names[index]);
                 break;
-            case Const.Games.FLAPPY_BIRD:
-                game = new Game_FlappyBird(Const.Games.names[index]);
+            case Const.Games.SPACE_DODGE:
+                game = new Game_SpaceDodge(Const.Games.names[index]);
                 break;
             default: //MainMenu
                 menu = new Menu_Main(this);

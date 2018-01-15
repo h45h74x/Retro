@@ -1,12 +1,17 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 class UI_StatusBar extends JPanel {
     private ImageIcon[] icons;
     private JLabel[] hearts;
     private JLabel scoreLabel;
     private Game parent;
+
+    private Point initialClick;
 
     private final Color bg = Const.Colors.gray_light();
 
@@ -89,6 +94,29 @@ class UI_StatusBar extends JPanel {
         rightPanel.add(scoreLabel, BorderLayout.LINE_START);
 
         add(rightPanel, BorderLayout.LINE_END);
+
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int thisX = Launcher.getMain().getMainFrame().getLocation().x;
+                int thisY = Launcher.getMain().getMainFrame().getLocation().y;
+
+                int xMoved = (thisX + e.getX()) - (thisX + initialClick.x);
+                int yMoved = (thisY + e.getY()) - (thisY + initialClick.y);
+
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                Launcher.getMain().getMainFrame().setLocation(X, Y);
+                Launcher.con.setLocation(X + Launcher.getMain().getMainFrame().getWidth(), Y);
+            }
+        });
     }
 
     private void loadImages() {
