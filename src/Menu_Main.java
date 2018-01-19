@@ -1,13 +1,7 @@
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 public class Menu_Main extends Menu {
     Menu_Main(Launcher main) {
@@ -84,20 +78,7 @@ public class Menu_Main extends Menu {
     }
 
     public void playSound(String path) {
-        AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BGM;
-        AudioData MD;
-        ContinuousAudioDataStream loop = null;
 
-        try {
-            BGM = new AudioStream(getClass().getResourceAsStream(path));
-            MD = BGM.getData();
-            loop = new ContinuousAudioDataStream(MD);
-        } catch (IOException error) {
-            error.printStackTrace();
-        }
-
-        MGP.start(loop);
     }
 
 

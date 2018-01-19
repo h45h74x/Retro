@@ -1,5 +1,4 @@
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
 
 import java.awt.*;
 import java.io.IOException;
@@ -8,8 +7,7 @@ import java.io.IOException;
 final class Const {
 
     private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-    private static AudioStream audioStream = null;
-    private static AudioStream audioStreamBg = null;
+
 
     private Const() {
     }
@@ -30,29 +28,19 @@ final class Const {
     }
 
     public static void playBgSound(String path) {
-        try {
-            audioStreamBg = new AudioStream(classLoader.getResourceAsStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AudioPlayer.player.start(audioStreamBg);
+
     }
 
     public static void playSound(String path) {
-        try {
-            audioStream = new AudioStream(classLoader.getResourceAsStream(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AudioPlayer.player.start(audioStream);
+
     }
 
     public static void stopSound() {
-        AudioPlayer.player.stop(audioStream);
+        //AudioPlayer.player.stop(audioStream);
     }
 
     public static void stopBgSound() {
-        AudioPlayer.player.stop(audioStreamBg);
+        //AudioPlayer.player.stop(audioStreamBg);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
