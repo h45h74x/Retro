@@ -12,12 +12,14 @@ public class Game_SpaceImpact extends Game {
     private int xBound = Const.Numbers.width / 5;
 
     private int charactersize = 25;
+    private int enemyWidth = 20;
+    private int enemyHeight = 25;
 
     private int maxEnemies = 4;
     private int enemyCount;
     private int maxShots = 10;
 
-    private int slow_speed = 250;
+    private int slow_speed = 125;
     private int fast_speed = 10;
     private int startdelay = 1500;
 
@@ -39,6 +41,7 @@ public class Game_SpaceImpact extends Game {
                 if (enemies[i].getX() <= 0) {
                     enemies[i] = null;
                     enemyCount--;
+                    bar.loseHeart();
                 }
             }
         }
@@ -60,6 +63,7 @@ public class Game_SpaceImpact extends Game {
                 if (xCond && yCond) {
                     enemies[i] = null;
                     shots[j] = null;
+                    bar.increaseScore();
                 }
             }
         }
@@ -99,7 +103,7 @@ public class Game_SpaceImpact extends Game {
         //setBackgroundMusic(Const.SpaceDodge.soundpaths[0]);
         //startBgMusic();
 
-        character = new Moving_Entity(charactersize, charactersize, Const.SpaceDodge.iconpaths[0]);
+        character = new Moving_Entity(charactersize, charactersize, Const.SpaceImpact.iconpaths[0]);
         character.setLocation(charactersize / 2, height / 2);
         character.setBounds(0, xBound, 0, height - charactersize);
 
@@ -109,7 +113,7 @@ public class Game_SpaceImpact extends Game {
     private void newEnemy() {
         for (int i = 0; i < maxEnemies; i++) {
             if (enemies[i] == null) {
-                enemies[i] = new Moving_Entity(charactersize, charactersize, Const.SpaceDodge.iconpaths[0]);
+                enemies[i] = new Moving_Entity(enemyWidth, enemyHeight, Const.SpaceImpact.iconpaths[1]);
                 enemies[i].setVelX(-5);
                 enemies[i].setX(width - charactersize - random(0, width / 10));
                 enemies[i].setY(random(charactersize - 1, height - charactersize));
@@ -160,13 +164,15 @@ public class Game_SpaceImpact extends Game {
 
     @Override
     protected void kill() {
-        Launcher.con.printlnInfo("Killed @ " + name);
+        timer.cancel();
+        fast.cancel();
+        slow.cancel();
     }
 
-    @Override
     protected void halt() {
-        Launcher.con.printlnInfo("Pause @ " + name);
-        Launcher.extStartMenu(Const.Menues.MAIN_MENU);
+        timer.cancel();
+        fast.cancel();
+        slow.cancel();
     }
 
     protected void resume() {

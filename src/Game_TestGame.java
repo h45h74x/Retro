@@ -103,6 +103,9 @@ public class Game_TestGame extends Game {
         timer.cancel();
         task.cancel();
         task2.cancel();
+
+
+        Launcher.getMain().getMainFrame().addKeyListener(getGameKeys());
     }
 
     protected void halt() {

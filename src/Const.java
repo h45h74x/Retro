@@ -57,7 +57,7 @@ final class Const {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
-        public static final boolean debug = true;
+        public static final boolean debug = false;
         public static final boolean sounds = true;
         public static final boolean music = true;
     }
@@ -240,7 +240,8 @@ final class Const {
         public static final String bg = "icons/SpaceImpact/bg.jpg";
 
         public static final String[] iconpaths = {
-                "icons/SpaceImpact/ship.png"
+                "icons/SpaceImpact/ship.png",
+                "icons/SpaceImpact/enemy_01.png"
         };
 
         public static final String[] soundpaths = {

@@ -22,7 +22,7 @@ public class Menu_Games extends Menu {
         t1.setForeground(Const.Colors.elements_light());
         t1.setFont(new Font("Noto Sans", Font.PLAIN, 16));
 
-        JLabel t2 = new JLabel("HiScore");
+        JLabel t2 = new JLabel("");
         t2.setForeground(Const.Colors.elements());
         t2.setFont(new Font("Noto Sans", Font.PLAIN, 16));
 

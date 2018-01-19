@@ -56,7 +56,7 @@ public class Game_SpaceDodge extends Game {
         setBackgroundMusic(Const.SpaceImpact.soundpaths[0]);
         startBgMusic();
 
-        character = new Moving_Entity(charactersize, charactersize, Const.SpaceImpact.iconpaths[0]);
+        character = new Moving_Entity(charactersize, charactersize, Const.SpaceDodge.iconpaths[0]);
         character.setLocation(charactersize / 2, height / 2);
         character.setBounds(0, width, 0, height - charactersize);
 
@@ -159,7 +159,7 @@ public class Game_SpaceDodge extends Game {
         if (xCond) {
             if (yCond) {
                 bar.increaseScore();
-                Const.playSound(Const.SpaceImpact.soundpaths[1]);
+                Const.playSound(Const.SpaceDodge.soundpaths[1]);
             } else bar.loseHeart();
             newObstacle();
         }
