@@ -45,7 +45,7 @@ final class Const {
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
-        public static final boolean debug = false;
+        public static final boolean debug = true;
         public static final boolean sounds = true;
         public static final boolean music = true;
     }
@@ -122,7 +122,7 @@ final class Const {
         public static final String start = "Start";
         public static final String pause = "Pause";
         public static final String return_to = "Return to";
-        public static final String game_over = "Game Over";
+        public static final String game_over = "RIP";
         public static final String retry = "Retry";
         public static final String back_to_mm = "Main Menu";
         public static final String exit = "Exit game";

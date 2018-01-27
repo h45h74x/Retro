@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="1974.0">Menu_Main</node>
+    <node x="3233.0" y="3418.0">Input_Arrow</node>
+    <node x="564.0" y="53.0">Game_TestGame</node>
+    <node x="2799.0" y="2027.0">Moving_Shot</node>
+    <node x="1885.0" y="2053.5">Menu_Pause</node>
+    <node x="1128.0" y="0.0">Game_SpaceImpact</node>
+    <node x="2722.5" y="2248.0">Moving</node>
+    <node x="0.0" y="0.0">Game_SpaceDodge</node>
+    <node x="1415.0" y="2053.5">Menu_GameOver</node>
+    <node x="3218.0" y="1974.0">Moving_Entity</node>
+    <node x="901.0" y="2619.0">Menu</node>
+    <node x="2565.0" y="3418.0">Input_TextField</node>
+    <node x="470.0" y="2000.5">Menu_Games</node>
+    <node x="2380.0" y="2027.0">Moving_Surface</node>
+    <node x="0.0" y="3418.0">Debug_Console</node>
+    <node x="1486.0" y="3418.0">Const</node>
+    <node x="2905.0" y="3418.0">Input_RButton</node>
+    <node x="945.0" y="2027.0">Menu_Credits</node>
+    <node x="560.5" y="963.0">Game</node>
+    <node x="3533.0" y="3418.0">UI_Frame</node>
+    <node x="1018.0" y="3418.0">UI_StatusBar</node>
+    <node x="518.0" y="3418.0">Launcher</node>
+    <node x="1982.0" y="3418.0">UI_Screen</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Game_SpaceImpact" target="Game">
+      <point x="183.66666666666663" y="-483.0" />
+      <point x="1019.6666666666666" y="938.0" />
+      <point x="1400.0" y="938.0" />
+      <point x="0.0" y="456.5" />
+    </edge>
+    <edge source="Moving_Entity" target="Moving">
+      <point x="184.0" y="-483.0" />
+      <point x="3182.5" y="2223.0" />
+      <point x="3417.5" y="2223.0" />
+      <point x="0.0" y="112.0" />
+    </edge>
+    <edge source="Menu_Pause" target="Menu">
+      <point x="215.2" y="-377.0" />
+      <point x="1385.2" y="2599.0" />
+      <point x="2110.0" y="2599.0" />
+      <point x="0.0" y="218.0" />
+    </edge>
+    <edge source="Menu_GameOver" target="Menu">
+      <point x="107.60000000000002" y="-377.0" />
+      <point x="1277.6" y="2589.0" />
+      <point x="1640.0" y="2589.0" />
+      <point x="0.0" y="218.0" />
+    </edge>
+    <edge source="Menu_Main" target="Menu">
+      <point x="-215.20000000000005" y="-377.0" />
+      <point x="954.8" y="2599.0" />
+      <point x="225.0" y="2599.0" />
+      <point x="0.0" y="297.5" />
+    </edge>
+    <edge source="Game_TestGame" target="Game">
+      <point x="0.0" y="-483.0" />
+      <point x="0.0" y="403.5" />
+    </edge>
+    <edge source="Game_SpaceDodge" target="Game">
+      <point x="-183.66666666666663" y="-483.0" />
+      <point x="652.3333333333334" y="938.0" />
+      <point x="272.0" y="938.0" />
+      <point x="0.0" y="456.5" />
+    </edge>
+    <edge source="Menu_Credits" target="Menu">
+      <point x="0.0" y="-377.0" />
+      <point x="0.0" y="244.5" />
+    </edge>
+    <edge source="Moving_Surface" target="Moving">
+      <point x="-184.0" y="-483.0" />
+      <point x="2814.5" y="2223.0" />
+      <point x="2579.5" y="2223.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="Menu_Games" target="Menu">
+      <point x="-107.60000000000002" y="-377.0" />
+      <point x="1062.4" y="2589.0" />
+      <point x="697.5" y="2589.0" />
+      <point x="0.0" y="271.0" />
+    </edge>
+    <edge source="Moving_Shot" target="Moving">
+      <point x="0.0" y="-483.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.30000000000000004" x="-1523.690710594372" y="3422.420472697867" />
+  <SelectedNodes>
+    <node>Game</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

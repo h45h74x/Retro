@@ -15,11 +15,11 @@ public class Game_SpaceImpact extends Game {
     private int enemyWidth = 20;
     private int enemyHeight = 25;
 
-    private int maxEnemies = 4;
+    private int maxEnemies = 1000;
     private int enemyCount;
-    private int maxShots = 10;
+    private int maxShots = 100;
 
-    private int slow_speed = 125;
+    private int slow_speed = 200;
     private int fast_speed = 10;
     private int startdelay = 1500;
 
