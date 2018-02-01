@@ -44,6 +44,11 @@ public abstract class Moving {
         this.iconPath = path;
     }
 
+    protected void updateIcon(String path) {
+        this.iconPath = path;
+        loadIcon();
+    }
+
     private void loadIcon() {
         try {
             icon = ImageIO.read(getClass().getResourceAsStream(iconPath));

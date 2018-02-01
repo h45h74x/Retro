@@ -7,6 +7,10 @@ public class Moving_Entity extends Moving {
         super(width, height, iconPath);
     }
 
+    Moving_Entity(int a, String iconPath) {
+        super(a, a, iconPath);
+    }
+
     public boolean isHit() {
         return hit;
     }

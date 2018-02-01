@@ -126,8 +126,8 @@ class Launcher {
             case Const.Games.SPACE_IMPACT:
                 game = new Game_SpaceImpact(Const.Games.names[index]);
                 break;
-            case Const.Games.TESTGAME:
-                game = new Game_TestGame(Const.Games.names[index]);
+            case Const.Games.SNAKE:
+                game = new Game_Snake(Const.Games.names[index]);
                 break;
             case Const.Games.SPACE_DODGE:
                 game = new Game_SpaceDodge(Const.Games.names[index]);

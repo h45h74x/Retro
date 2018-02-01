@@ -131,7 +131,7 @@ class UI_StatusBar extends JPanel {
         }
     }
 
-    private void increaseScore(int score) {
+    void increaseScore(int score) {
         changeColor(1);
 
         this.score += score;
@@ -140,6 +140,11 @@ class UI_StatusBar extends JPanel {
 
     void increaseScore() {
         increaseScore(1);
+    }
+
+    void setScore(int score) {
+        this.score = score;
+        scoreLabel.setText(String.valueOf(this.score));
     }
 
     void loseHeart() {
@@ -155,7 +160,11 @@ class UI_StatusBar extends JPanel {
         return score;
     }
 
-    private void setHeartCount(int num) {
+    void updateHearts() {
+
+    }
+
+    void setHeartCount(int num) {
         heartCount = num;
     }
 

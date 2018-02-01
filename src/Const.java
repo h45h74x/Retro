@@ -124,8 +124,8 @@ final class Const {
         public static final String return_to = "Return to";
         public static final String game_over = "RIP";
         public static final String retry = "Retry";
-        public static final String back_to_mm = "Main Menu";
-        public static final String exit = "Exit game";
+        public static final String back_to_mm = "Back to Menu";
+        public static final String exit = "Exit";
         public static final String choose_game = "Choose Game";
         public static final String back = "Back";
         public static final String name = "Retro";
@@ -193,7 +193,7 @@ final class Const {
     public static final class Games {
         public static final String[] names = {
                 "Space Impact",
-                "Test Game",
+                "Snake",
                 "SpaceDodge"
         };
 
@@ -206,7 +206,7 @@ final class Const {
 
         public static final int SPACE_IMPACT = 0;
         @SuppressWarnings("SpellCheckingInspection")
-        public static final int TESTGAME = 1;
+        public static final int SNAKE = 1;
         public static final int SPACE_DODGE = 2;
     }
 
@@ -259,6 +259,29 @@ final class Const {
         };
 
         private SpaceDodge() {
+        }
+    }
+
+    public static final class Snake {
+        @SuppressWarnings("SpellCheckingInspection")
+        public static final String version = "v0.1 beta";
+
+        public static final String[] iconpaths = {
+                "icons/Snake/SnakeBody.png",
+                "icons/Snake/SnakeLeft.png",
+                "icons/Snake/SnakeRight.png",
+                "icons/Snake/SnakeUp.png",
+                "icons/Snake/SnakeDown.png",
+                "icons/Snake/SnakeApple.png"
+        };
+
+        public static final String[] soundpaths = {
+                "sounds/SpaceDodge/bg.wav",
+                "sounds/SpaceDodge/Beep.wav",
+                "sounds/SpaceDodge/GameOver.wav"
+        };
+
+        private Snake() {
         }
     }
 }

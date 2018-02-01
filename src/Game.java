@@ -43,6 +43,26 @@ abstract class Game extends JPanel /*implements Runnable*/ {
     UI_StatusBar bar;
     private UI_Frame frame;
 
+    Game(String name, int hearts) {
+        super();
+        this.name = name;
+        this.frame = Launcher.getMain().getMainFrame();
+
+        setLayout(new BorderLayout());
+
+        pauseMenu = new Menu_Pause(this);
+        overMenu = new Menu_GameOver(this);
+
+        screen = new UI_Screen(this);
+        add(screen, BorderLayout.CENTER);
+
+        bar = new UI_StatusBar(this, hearts);
+        add(bar, BorderLayout.PAGE_START);
+
+        Launcher.con.spacer("-");
+        Launcher.con.println("created " + name);
+    }
+
     Game(String name) {
         super();
         this.name = name;
