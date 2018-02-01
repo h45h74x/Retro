@@ -1,31 +1,30 @@
-import javax.imageio.ImageIO;
+package Retro.UI;
+
+import Retro.Const;
+import Retro.Game.Game;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-class UI_StatusBar extends JPanel {
+public class StatusBar extends JPanel {
+    private final Game parent;
+    private final Color bg = Const.Colors.gray_light();
+    private final int imageSize = 15;
+    private final int yPadding = 10;
+    private final int height = imageSize + yPadding;
     private ImageIcon[] icons;
     private JLabel[] hearts;
     private JLabel scoreLabel;
-    private Game parent;
-
     private Point initialClick;
-
-    private final Color bg = Const.Colors.gray_light();
-
     private Timer timer;
-
-    private final int imageSize = 15;
     private int heartCount = 0;
     private int score = 0;
-    private final int yPadding = 10;
 
-    private final int height = imageSize + yPadding;
-    private final int width = Const.Numbers.width;
-
-    UI_StatusBar(Game parent, int hearts) {
+    public StatusBar(Game parent, int hearts) {
         super();
         this.parent = parent;
         setHeartCount(hearts);
@@ -57,6 +56,7 @@ class UI_StatusBar extends JPanel {
         BorderLayout layout = new BorderLayout();
         layout.setVgap(yPadding);
         setLayout(layout);
+        int width = Const.Numbers.width;
         setPreferredSize(new Dimension(width, height));
         changeColor(0);
 
@@ -122,8 +122,8 @@ class UI_StatusBar extends JPanel {
     private void loadImages() {
         icons = new ImageIcon[2];
         try {
-            icons[0] = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[3])));
-            icons[1] = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[4])));
+            icons[0] = new ImageIcon(Const.getImage(Const.Strings.iconpaths[3]));
+            icons[1] = new ImageIcon(Const.getImage(Const.Strings.iconpaths[4]));
             //icons[0] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[3])));
             //icons[1] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[4])));
         } catch (Exception ex) {
@@ -131,23 +131,18 @@ class UI_StatusBar extends JPanel {
         }
     }
 
-    void increaseScore(int score) {
+    private void increaseScore(int score) {
         changeColor(1);
 
         this.score += score;
         scoreLabel.setText(String.valueOf(this.score));
     }
 
-    void increaseScore() {
+    public void increaseScore() {
         increaseScore(1);
     }
 
-    void setScore(int score) {
-        this.score = score;
-        scoreLabel.setText(String.valueOf(this.score));
-    }
-
-    void loseHeart() {
+    public void loseHeart() {
         changeColor(2);
 
         hearts[heartCount - 1].setVisible(false);
@@ -160,11 +155,16 @@ class UI_StatusBar extends JPanel {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+        scoreLabel.setText(String.valueOf(this.score));
+    }
+
     void updateHearts() {
 
     }
 
-    void setHeartCount(int num) {
+    public void setHeartCount(int num) {
         heartCount = num;
     }
 

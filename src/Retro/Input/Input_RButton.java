@@ -1,8 +1,12 @@
+package Retro.Input;
+
+import Retro.Const;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-class Input_RButton extends JButton {
+public class Input_RButton extends JButton {
 
     public Input_RButton(String text) {
         setBorder(new RoundedBorder());

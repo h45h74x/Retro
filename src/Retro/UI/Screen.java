@@ -1,10 +1,15 @@
+package Retro.UI;
+
+import Retro.Const;
+import Retro.Game.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
-class UI_Screen extends JPanel {
+public class Screen extends JPanel {
     private final Game parent;
 
-    UI_Screen(Game parent) {
+    public Screen(Game parent) {
         super();
         this.parent = parent;
         setBackground(Const.Colors.background());

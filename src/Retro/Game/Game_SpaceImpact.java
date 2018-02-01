@@ -1,39 +1,35 @@
+package Retro.Game;
+
+import Retro.Const;
+import Retro.Entity.Moving;
+import Retro.Entity.Moving_Entity;
+import Retro.Entity.Moving_Shot;
+
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game_SpaceImpact extends Game {
+    private final int height = Const.Numbers.height - bar.getHeight(); // 575
+    private final int width = Const.Numbers.width;
+    private final int charactersize = 25;
+    private final int maxEnemies = 10;
+    private final int maxShots = 10;
+    private final Moving[] enemies = new Moving[maxEnemies];
+    private final Moving[] shots = new Moving[maxShots];
     private Timer timer;
     private TimerTask slow;
     private TimerTask fast;
-
-    private int height = Const.Numbers.height - bar.getHeight(); // 575
-    private int width = Const.Numbers.width;
-    private int xBound = Const.Numbers.width / 5;
-
-    private int charactersize = 25;
-    private int enemyWidth = 20;
-    private int enemyHeight = 25;
-
-    private int maxEnemies = 1000;
-    private int enemyCount;
-    private int maxShots = 100;
-
-    private int slow_speed = 200;
-    private int fast_speed = 10;
     private int startdelay = 1500;
-
-    private Moving[] enemies = new Moving[maxEnemies];
-    private Moving[] shots = new Moving[maxShots];
     private Moving character;
 
-    Game_SpaceImpact(String name) {
+    public Game_SpaceImpact(String name) {
         super(name);
         setup();
     }
 
-    void slow() {
-        enemyCount = 0;
+    private void slow() {
+        int enemyCount = 0;
         for (int i = 0; i < maxEnemies; i++) {
             if (enemies[i] != null) {
                 enemies[i].tick();
@@ -48,7 +44,7 @@ public class Game_SpaceImpact extends Game {
         if (enemyCount <= maxEnemies) newEnemy();
     }
 
-    void fast() {
+    private void fast() {
         character.tick();
         for (int i = 0; i < maxShots; i++) {
             if (shots[i] != null) {
@@ -70,7 +66,7 @@ public class Game_SpaceImpact extends Game {
     }
 
     @Override
-    protected Graphics syncGraphics(Graphics g) {
+    public Graphics syncGraphics(Graphics g) {
         character.render(g);
         for (Moving shot : shots) {
             if (shot != null) shot.render(g);
@@ -97,7 +93,7 @@ public class Game_SpaceImpact extends Game {
         }
     }
 
-    protected void setup() {
+    private void setup() {
         screen.setBackground(Const.Colors.lcd());
         //setGameOverSound(Const.SpaceDodge.soundpaths[2]);
         //setBackgroundMusic(Const.SpaceDodge.soundpaths[0]);
@@ -105,6 +101,7 @@ public class Game_SpaceImpact extends Game {
 
         character = new Moving_Entity(charactersize, charactersize, Const.SpaceImpact.iconpaths[0]);
         character.setLocation(charactersize / 2, height / 2);
+        int xBound = Const.Numbers.width / 5;
         character.setBounds(0, xBound, 0, height - charactersize);
 
         resume();
@@ -113,6 +110,8 @@ public class Game_SpaceImpact extends Game {
     private void newEnemy() {
         for (int i = 0; i < maxEnemies; i++) {
             if (enemies[i] == null) {
+                int enemyHeight = 25;
+                int enemyWidth = 20;
                 enemies[i] = new Moving_Entity(enemyWidth, enemyHeight, Const.SpaceImpact.iconpaths[1]);
                 enemies[i].setVelX(-5);
                 enemies[i].setX(width - charactersize - random(0, width / 10));
@@ -163,7 +162,7 @@ public class Game_SpaceImpact extends Game {
     }
 
     @Override
-    protected void kill() {
+    public void kill() {
         timer.cancel();
         fast.cancel();
         slow.cancel();
@@ -190,7 +189,9 @@ public class Game_SpaceImpact extends Game {
                 fast();
             }
         };
+        int slow_speed = 200;
         timer.schedule(slow, startdelay, slow_speed);
+        int fast_speed = 10;
         timer.schedule(fast, 0, fast_speed);
 
         startdelay = 250;

@@ -1,3 +1,7 @@
+package Retro.Debug;
+
+import Retro.Const;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -7,11 +11,11 @@ import java.awt.*;
 
 @SuppressWarnings("ConstantConditions")
 public class Debug_Console extends JFrame {
-    private final StyledDocument doc;
-    private final Style style;
+    private static StyledDocument doc = null;
+    private static Style style = null;
     private int count;
 
-    public Debug_Console(UI_Frame frame) {
+    public Debug_Console(Retro.UI.Frame frame) {
         int x = frame.getX();
         int y = frame.getY();
         int w = frame.getWidth();
@@ -42,6 +46,16 @@ public class Debug_Console extends JFrame {
 
         setResizable(false);
         display();
+    }
+
+    public static void staticPrintlnError(Exception t) {
+        if (doc != null) {
+            StyleConstants.setForeground(style, Color.red);
+            try {
+                doc.insertString(doc.getLength(), t.toString(), style);
+            } catch (BadLocationException ignored) {
+            }
+        } else t.printStackTrace();
     }
 
     private void resetColor() {

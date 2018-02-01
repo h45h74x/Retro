@@ -1,10 +1,16 @@
+package Retro.Menu;
+
+import Retro.Const;
+import Retro.Input.Input_RButton;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
 public class Menu_Credits extends Menu {
 
-    Menu_Credits(Launcher main) {
+    public Menu_Credits(Launcher main) {
         super(main);
     }
 

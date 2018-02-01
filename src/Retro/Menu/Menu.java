@@ -1,36 +1,72 @@
+package Retro.Menu;
+
+import Retro.Const;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 @SuppressWarnings({"Duplicates", "ConstantConditions"})
-abstract class Menu extends JPanel {
+public abstract class Menu extends JPanel {
+    final Retro.UI.Frame frame;
     private final KeyAdapter menuKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_W) key_W(true);
-            else if (e.getKeyCode() == KeyEvent.VK_A) key_A(true);
-            else if (e.getKeyCode() == KeyEvent.VK_S) key_S(true);
-            else if (e.getKeyCode() == KeyEvent.VK_D) key_D(true);
-            else if (e.getKeyCode() == KeyEvent.VK_SPACE) key_SPACE(true);
-            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) key_ESC(true);
-            else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    key_W(true);
+                    break;
+                case KeyEvent.VK_A:
+                    key_A(true);
+                    break;
+                case KeyEvent.VK_S:
+                    key_S(true);
+                    break;
+                case KeyEvent.VK_D:
+                    key_D(true);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    key_SPACE(true);
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    key_ESC(true);
+                    break;
+                default:
+                    Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
+                    break;
+            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_W) key_W(false);
-            else if (e.getKeyCode() == KeyEvent.VK_A) key_A(false);
-            else if (e.getKeyCode() == KeyEvent.VK_S) key_S(false);
-            else if (e.getKeyCode() == KeyEvent.VK_D) key_D(false);
-            else if (e.getKeyCode() == KeyEvent.VK_SPACE) key_SPACE(false);
-            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) key_ESC(false);
-            else Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    key_W(false);
+                    break;
+                case KeyEvent.VK_A:
+                    key_A(false);
+                    break;
+                case KeyEvent.VK_S:
+                    key_S(false);
+                    break;
+                case KeyEvent.VK_D:
+                    key_D(false);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    key_SPACE(false);
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    key_ESC(false);
+                    break;
+                default:
+                    Launcher.con.printInfo(KeyEvent.getKeyText(e.getKeyCode()));
+                    break;
+            }
         }
     };
-
-    protected Color black = Const.Colors.elements();
-    UI_Frame frame;
-    Launcher main;
+    private final Launcher main;
+    Color black = Const.Colors.elements();
     String activegame;
     private boolean enableGradient = true;
     private Color c1 = Const.Colors.accent();
@@ -86,7 +122,7 @@ abstract class Menu extends JPanel {
 
     }
 
-    KeyAdapter getMenuKeys() {
+    public KeyAdapter getMenuKeys() {
         return menuKeys;
     }
 

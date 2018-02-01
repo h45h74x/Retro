@@ -1,36 +1,32 @@
-//
+package Retro.Game;//
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by Fernflower decompiler)
 //
 
+import Retro.Const;
+import Retro.Entity.Moving_Entity;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.*;
-import javax.swing.text.html.parser.Entity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-class Game_Snake extends Game {
+public class Game_Snake extends Game {
 
     private final int maxBody = 100; //(Const.Numbers.panel_height * Const.Numbers.game_width) / 400;
-    private Timer timer;
     private final long createdMillis = System.currentTimeMillis();
     private final int[][] traces = new int[maxBody][2];
     private final Moving_Entity[] body = new Moving_Entity[maxBody];
+    private final int entity_size = 15;
+    private final int padding = 5;
+    private final int step = entity_size + padding;
+    private Timer timer;
     private int dir = 1; // 0 nix, 1 links; 2 rechts; 3 oben; 4 unten
     private int lengthofsnake = 3;
-    private int entity_size = 15;
-
-    private int padding = 5;
-    private int step = entity_size + padding;
     private boolean lock = false;
     private boolean draw = false;
     private Moving_Entity apple;
 
-    Game_Snake(String name) {
+    public Game_Snake(String name) {
         super(name, 0);
         generateFirst();
         bar.setScore(lengthofsnake);
@@ -42,7 +38,8 @@ class Game_Snake extends Game {
     private void generate() {
         body[0].updateIcon(Const.Snake.iconpaths[dir]);
         for (int i = 1; i < lengthofsnake; i++) {
-            if (body[i] == null) body[i] = new Moving_Entity(entity_size, entity_size + padding, Const.Snake.iconpaths[0]);
+            if (body[i] == null)
+                body[i] = new Moving_Entity(entity_size, entity_size + padding, Const.Snake.iconpaths[0]);
         }
     }
 
@@ -141,7 +138,7 @@ class Game_Snake extends Game {
     }
 
     @Override
-    protected Graphics syncGraphics(Graphics g) {
+    public Graphics syncGraphics(Graphics g) {
         body[0].render(g);
         for (int i = 1; i < body.length; i++) {
             if (body[i] != null && draw) body[i].render(g);
@@ -201,7 +198,7 @@ class Game_Snake extends Game {
     }
 
     @Override
-    protected void kill() {
+    public void kill() {
 
     }
 

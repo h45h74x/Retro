@@ -1,15 +1,43 @@
+package Retro;
 
+import Retro.Debug.Debug_Console;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
 @SuppressWarnings("ALL")
-final class Const {
-
+public final class Const {
+    private static MediaPlayer bgPlayer;
+    private static MediaPlayer soundPlayer;
     private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
+    private static JFXPanel jfx = null;
 
     private Const() {
+    }
+
+    private static void initJFX() {
+        if (jfx != null) return;
+        jfx = new JFXPanel();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Launcher.con.printInfo("JFX Summoned");
+            }
+        });
+    }
+
+    public static Image getImage(String p) {
+        try {
+            return ImageIO.read(classLoader.getResourceAsStream(p));
+        } catch (IOException e) {
+            Debug_Console.staticPrintlnError(e);
+        }
+        return null;
     }
 
     public static void LoadFonts() {
@@ -28,19 +56,27 @@ final class Const {
     }
 
     public static void playBgSound(String path) {
-
+        initJFX();
+        stopBgSound();
+        Media media = new Media(classLoader.getResource(path).toString());
+        bgPlayer = new MediaPlayer(media);
+        bgPlayer.play();
     }
 
     public static void playSound(String path) {
-
+        initJFX();
+        stopSound();
+        Media media = new Media(classLoader.getResource(path).toString());
+        soundPlayer = new MediaPlayer(media);
+        soundPlayer.play();
     }
 
     public static void stopSound() {
-        //AudioPlayer.player.stop(audioStream);
+        if (soundPlayer != null) soundPlayer.stop();
     }
 
     public static void stopBgSound() {
-        //AudioPlayer.player.stop(audioStreamBg);
+        if (bgPlayer != null) bgPlayer.stop();
     }
 
     @SuppressWarnings("SpellCheckingInspection")
@@ -116,9 +152,6 @@ final class Const {
 
     public static final class Strings {
         public static final String version = "v1.0";
-
-        public static String username = "Player";
-
         public static final String start = "Start";
         public static final String pause = "Pause";
         public static final String return_to = "Return to";
@@ -151,11 +184,6 @@ final class Const {
                 "It is entirely written in Java and combines a clean, modern UI with nostalgia. \n" +
                 " \n" +
                 "Retro was created by Selma Hasanovic (selmah1) and Simon Gruber (h45h74x)";
-
-
-        private Strings() {
-        }
-
         @SuppressWarnings("SpellCheckingInspection")
         static final String[] fontpaths = {
                 "fonts/NotoSans-Black.ttf",
@@ -163,6 +191,10 @@ final class Const {
                 "fonts/PixelVerdana.ttf",
                 "fonts/VeraMono.ttf"
         };
+        public static String username = "Player";
+
+        private Strings() {
+        }
 
     }
 

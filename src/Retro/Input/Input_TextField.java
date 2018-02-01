@@ -1,7 +1,11 @@
+package Retro.Input;
+
+import Retro.Const;
+
 import javax.swing.*;
 import java.awt.*;
 
-class Input_TextField extends JTextField {
+public class Input_TextField extends JTextField {
     public Input_TextField() {
         setForeground(Const.Colors.elements());
         setBorder(javax.swing.BorderFactory.createEmptyBorder());

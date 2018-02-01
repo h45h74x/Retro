@@ -1,8 +1,12 @@
-import javax.imageio.ImageIO;
+package Retro.Input;
+
+import Retro.Const;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
-class Input_Arrow extends JButton {
+public class Input_Arrow extends JButton {
 
     public Input_Arrow(boolean left) {
         super();
@@ -18,7 +22,7 @@ class Input_Arrow extends JButton {
         else iconpath = Const.Strings.iconpaths[2];
 
         try {
-            Image img = ImageIO.read(getClass().getResourceAsStream(iconpath));
+            Image img = Const.getImage(iconpath);
             //Image img = ImageIO.read(new FileInputStream(iconpath));
             //noinspection SuspiciousNameCombination
             img = img.getScaledInstance(width, width, java.awt.Image.SCALE_SMOOTH);

@@ -1,34 +1,40 @@
+package Retro.Menu;
+
+import Retro.Const;
+import Retro.Game.Game;
+import Retro.Input.Input_RButton;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Menu_GameOver extends Menu {
+public class Menu_Pause extends Menu {
     private Game parent;
 
-    Menu_GameOver(Game parent) {
+    public Menu_Pause(Game parent) {
         super(Launcher.getMain(), parent.getName());
         this.parent = parent;
     }
 
-    Menu_GameOver(Launcher main) {
+    public Menu_Pause(Launcher main) {
         super(main);
     }
 
     @Override
     protected void setup() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        redGradient();
 
         JLabel t1 = new JLabel();
-        t1.setText(Const.Strings.game_over);
-        t1.setForeground(black);
+        t1.setText(Const.Strings.pause);
+        t1.setForeground(Const.Colors.elements());
         t1.setFont(new Font("Noto Sans", Font.PLAIN, 72));
         t1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        Input_RButton b1 = new Input_RButton(Const.Strings.retry);
+        Input_RButton b1 = new Input_RButton(Const.Strings.return_to + " " + activegame);
         b1.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
         b1.setFont(new Font("Noto Sans", Font.PLAIN, 20));
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        b1.addActionListener(e -> Launcher.extStartGame());
+        b1.addActionListener(e -> parent.pause());
 
         Input_RButton b2 = new Input_RButton(Const.Strings.back_to_mm);
         b2.setMaximumSize(new Dimension((int) (frame.getWidth() * 0.9), 50));
@@ -74,11 +80,10 @@ public class Menu_GameOver extends Menu {
 
     @Override
     protected void key_SPACE(boolean pressed) {
-        if (pressed) Launcher.extStartGame();
     }
 
     @Override
     protected void key_ESC(boolean pressed) {
-        if (pressed) Launcher.home();
+        if (pressed) parent.pause();
     }
 }

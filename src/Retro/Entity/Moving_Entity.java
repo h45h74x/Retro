@@ -1,9 +1,11 @@
+package Retro.Entity;
+
 import java.awt.*;
 
 public class Moving_Entity extends Moving {
     private boolean hit = false;
 
-    Moving_Entity(int width, int height, String iconPath) {
+    public Moving_Entity(int width, int height, String iconPath) {
         super(width, height, iconPath);
     }
 
@@ -19,7 +21,7 @@ public class Moving_Entity extends Moving {
         this.hit = hit;
     }
 
-    protected void render(Graphics g) {
+    public void render(Graphics g) {
         g.drawImage(icon, (int) x, (int) y, null);
     }
 

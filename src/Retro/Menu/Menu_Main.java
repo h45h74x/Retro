@@ -1,10 +1,17 @@
+package Retro.Menu;
+
+import Retro.Const;
+import Retro.Input.Input_RButton;
+import Retro.Input.Input_TextField;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Menu_Main extends Menu {
-    Menu_Main(Launcher main) {
+    public Menu_Main(Launcher main) {
         super(main);
     }
 

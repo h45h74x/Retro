@@ -1,17 +1,25 @@
-class Launcher {
+package Retro;
 
-    private Thread gameThread;
+import Retro.Debug.Debug_Console;
+import Retro.Game.Game;
+import Retro.Game.Game_Snake;
+import Retro.Game.Game_SpaceDodge;
+import Retro.Game.Game_SpaceImpact;
+import Retro.Menu.*;
+import Retro.UI.Frame;
+
+public class Launcher {
 
     public static Debug_Console con;
     private static Launcher main;
-
     private static int lastGameIndex;
+    private final Frame mainFrame;
+    private Thread gameThread;
     private Game game;
     private Menu menu;
-    private final UI_Frame mainFrame;
 
     private Launcher() {
-        mainFrame = new UI_Frame(Const.Strings.name);
+        mainFrame = new Frame(Const.Strings.name);
         con = new Debug_Console(mainFrame);
         Const.LoadFonts();
     }
@@ -21,30 +29,30 @@ class Launcher {
         home();
     }
 
-    static void extStartMenu(int index) {
+    public static void extStartMenu(int index) {
         if (main == null) return;
         main.startMenu(index);
     }
 
-    static void extStartGame(int index) {
+    public static void extStartGame(int index) {
         if (main == null) return;
         main.startGame(index);
     }
 
-    static void extStartGame() {
+    public static void extStartGame() {
         if (main == null) return;
         main.startGame(lastGameIndex);
     }
 
-    static void home() {
+    public static void home() {
         if (main != null) main.startMenu(0);
     }
 
-    static void kill() {
+    public static void kill() {
         System.exit(0);
     }
 
-    static Launcher getMain() {
+    public static Launcher getMain() {
         return main;
     }
 
@@ -139,7 +147,7 @@ class Launcher {
         attach();
     }
 
-    UI_Frame getMainFrame() {
+    public Frame getMainFrame() {
         return mainFrame;
     }
 

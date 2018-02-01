@@ -1,17 +1,16 @@
-import javax.imageio.ImageIO;
+package Retro.UI;
+
+import Retro.Const;
+
 import javax.swing.*;
-import java.io.IOException;
 
-class UI_Frame extends JFrame {
+public class Frame extends JFrame {
 
-    public UI_Frame(String name) {
+    public Frame(String name) {
         setTitle(name);
-        try {
-            setIconImage(ImageIO.read(getClass().getResourceAsStream(Const.Strings.iconpaths[0])));
-            //setIconImage(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[0])));
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
+
+        setIconImage(Const.getImage(Const.Strings.iconpaths[0]));
+
         getContentPane().setBackground(Const.Colors.background());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

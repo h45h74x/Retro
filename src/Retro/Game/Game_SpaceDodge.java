@@ -1,46 +1,44 @@
-import javax.imageio.ImageIO;
+package Retro.Game;
+
+import Retro.Const;
+import Retro.Entity.Moving;
+import Retro.Entity.Moving_Entity;
+import Retro.Entity.Moving_Surface;
+import Retro.Launcher;
+
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game_SpaceDodge extends Game {
+    private final int height = Const.Numbers.height - bar.getHeight(); // 575
+    private final int width = Const.Numbers.width;
+    private final int charactersize = 25;
+    private final int maxHoleSize = (int) (charactersize * 3);
+    private final int minHoleSize = (int) (charactersize * 2);
+    private final int maxObstacles = 3;
+    private final int xStep = -7;
+    private final int yStep = 3;
+    private final int distance = (int) ((width / maxObstacles));
+    private final Moving[] obst_tops = new Moving[maxObstacles];
+    private final Moving[] obst_bots = new Moving[maxObstacles];
+    private final Moving[] holes = new Moving[maxObstacles];
     private Timer timer;
     private TimerTask slow;
     private TimerTask fast;
-
     private Image bg;
-
-    private int height = Const.Numbers.height - bar.getHeight(); // 575
-    private int width = Const.Numbers.width;
-
-    private int charactersize = 25;
-    private int maxHoleSize = (int) (charactersize * 3);
-    private int minHoleSize = (int) (charactersize * 2);
-
-    private int maxObstacles = 4;
-
     private Paint gradient;
-
-    private int xStep = -7;
-    private int obst_speed = 35;
-    private int char_speed = 10;
     private int startdelay = 1500;
-
-    private int distance = (int) ((width / maxObstacles));
-
-    private Moving[] obst_tops = new Moving[maxObstacles];
-    private Moving[] obst_bots = new Moving[maxObstacles];
-    private Moving[] holes = new Moving[maxObstacles];
     private Moving character;
 
-    Game_SpaceDodge(String name) {
+    public Game_SpaceDodge(String name) {
         super(name);
         setup();
     }
 
-    protected void setup() {
+    private void setup() {
         try {
-            bg = ImageIO.read(getClass().getResourceAsStream(Const.SpaceImpact.bg));
+            bg = Const.getImage(Const.SpaceImpact.bg);
             bg = bg.getScaledInstance(Const.Numbers.width, Const.Numbers.height, Image.SCALE_SMOOTH);
         } catch (Exception ex) {
             Launcher.con.printlnError(ex.toString());
@@ -119,7 +117,7 @@ public class Game_SpaceDodge extends Game {
     }
 
     @Override
-    protected Graphics syncGraphics(Graphics g) {
+    public Graphics syncGraphics(Graphics g) {
         if (gradient != null) {
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -140,11 +138,11 @@ public class Game_SpaceDodge extends Game {
         return g;
     }
 
-    void fast() {
+    private void fast() {
         character.tick();
     }
 
-    void slow() {
+    private void slow() {
         for (int i = 0; i < maxObstacles; i++) {
             obst_tops[i].tick();
             obst_bots[i].tick();
@@ -173,7 +171,7 @@ public class Game_SpaceDodge extends Game {
 
     @Override
     protected void key_W(boolean pressed) {
-        if (pressed) character.setVelY(-5);
+        if (pressed) character.setVelY(-yStep);
         if (!pressed) character.setVelY(0);
     }
 
@@ -184,7 +182,7 @@ public class Game_SpaceDodge extends Game {
 
     @Override
     protected void key_S(boolean pressed) {
-        if (pressed) character.setVelY(5);
+        if (pressed) character.setVelY(yStep);
         if (!pressed) character.setVelY(0);
     }
 
@@ -203,7 +201,7 @@ public class Game_SpaceDodge extends Game {
     }
 
     @Override
-    protected void kill() {
+    public void kill() {
         timer.cancel();
         fast.cancel();
         slow.cancel();
@@ -231,7 +229,9 @@ public class Game_SpaceDodge extends Game {
                 fast();
             }
         };
+        int obst_speed = 35;
         timer.schedule(slow, startdelay, obst_speed);
+        int char_speed = 10;
         timer.schedule(fast, 0, char_speed);
 
         startdelay = 250;

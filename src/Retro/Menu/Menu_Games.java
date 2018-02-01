@@ -1,4 +1,10 @@
-import javax.imageio.ImageIO;
+package Retro.Menu;
+
+import Retro.Const;
+import Retro.Input.Input_Arrow;
+import Retro.Input.Input_RButton;
+import Retro.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +13,7 @@ public class Menu_Games extends Menu {
     private GameScrollPanel scrollPanel;
     private int position;
 
-    Menu_Games(Launcher main) {
+    public Menu_Games(Launcher main) {
         super(main);
     }
 
@@ -112,27 +118,22 @@ public class Menu_Games extends Menu {
     }
 
     static class GameScrollPanel extends JPanel {
-        private JButton left;
-        private JButton right;
-        private JButton middle;
-
-        private Image[] icons;
-        private Image[] iconsSmall;
-
-        private Image icon_left;
-        private Image icon_middle;
-        private Image icon_right;
-
         private final Menu_Games parent;
         private final int height;
-
         private final int imageSize = 180;
         private final int imageSizeSmall = 120;
         private final int yPadding = 50;
         private final int yPos = 500;
-
-        private int position = Const.Numbers.selectorPos;
         private final int numgames = Const.Games.names.length;
+        private JButton left;
+        private JButton right;
+        private JButton middle;
+        private Image[] icons;
+        private Image[] iconsSmall;
+        private Image icon_left;
+        private Image icon_middle;
+        private Image icon_right;
+        private int position = Const.Numbers.selectorPos;
 
         GameScrollPanel(Menu_Games parent) {
             super();
@@ -234,7 +235,7 @@ public class Menu_Games extends Menu {
 
             for (int i = 0; i < numgames; i++) {
                 try {
-                    icons[i] = ImageIO.read(getClass().getResourceAsStream(Const.Games.icons[i]));
+                    icons[i] = Const.getImage(Const.Games.icons[i]);
                     //icons[i] = ImageIO.read(new FileInputStream(Const.Games.icons[i]));
                 } catch (Exception ex) {
                     Launcher.con.printlnError(ex.toString());

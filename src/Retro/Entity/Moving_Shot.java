@@ -1,3 +1,5 @@
+package Retro.Entity;
+
 import java.awt.*;
 
 public class Moving_Shot extends Moving {
@@ -7,7 +9,7 @@ public class Moving_Shot extends Moving {
     }
 
     @Override
-    protected void render(Graphics g) {
+    public void render(Graphics g) {
         Color temp = g.getColor();
         g.setColor(surfaceColor);
         g.fillRect((int) x, (int) y, width, height);
