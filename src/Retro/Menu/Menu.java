@@ -160,6 +160,8 @@ public abstract class Menu extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setPaint(gradient);
         g2.fillRect(0, 0, width, height);
+        repaint();
+
     }
 
     protected abstract void key_W(boolean pressed);

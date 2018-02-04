@@ -3,6 +3,7 @@ package Retro.UI;
 import Retro.Const;
 import Retro.Game.Game;
 import Retro.Launcher;
+import Retro.Managers.LookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -122,8 +123,8 @@ public class StatusBar extends JPanel {
     private void loadImages() {
         icons = new ImageIcon[2];
         try {
-            icons[0] = new ImageIcon(Const.getImage(Const.Strings.iconpaths[3]));
-            icons[1] = new ImageIcon(Const.getImage(Const.Strings.iconpaths[4]));
+            icons[0] = new ImageIcon(LookAndFeel.getImage(Const.Strings.iconpaths[3]));
+            icons[1] = new ImageIcon(LookAndFeel.getImage(Const.Strings.iconpaths[4]));
             //icons[0] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[3])));
             //icons[1] = new ImageIcon(ImageIO.read(new FileInputStream(Const.Strings.iconpaths[4])));
         } catch (Exception ex) {

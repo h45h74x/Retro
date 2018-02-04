@@ -2,8 +2,9 @@ package Retro.Game;
 
 import Retro.Const;
 import Retro.Launcher;
-import Retro.Menu.Menu_GameOver;
-import Retro.Menu.Menu_Pause;
+import Retro.Managers.LookAndFeel;
+import Retro.Menu.GameOver;
+import Retro.Menu.Pause;
 import Retro.UI.Screen;
 import Retro.UI.StatusBar;
 
@@ -18,8 +19,8 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
     final Screen screen;
     final StatusBar bar;
     private final String name;
-    private final Menu_Pause pauseMenu;
-    private final Menu_GameOver overMenu;
+    private final Pause pauseMenu;
+    private final GameOver overMenu;
     private final KeyAdapter gameKeys = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -87,8 +88,8 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
 
         setLayout(new BorderLayout());
 
-        pauseMenu = new Menu_Pause(this);
-        overMenu = new Menu_GameOver(this);
+        pauseMenu = new Pause(this);
+        overMenu = new GameOver(this);
 
         screen = new Screen(this);
         add(screen, BorderLayout.CENTER);
@@ -107,8 +108,8 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
 
         setLayout(new BorderLayout());
 
-        pauseMenu = new Menu_Pause(this);
-        overMenu = new Menu_GameOver(this);
+        pauseMenu = new Pause(this);
+        overMenu = new GameOver(this);
 
         screen = new Screen(this);
         add(screen, BorderLayout.CENTER);
@@ -154,14 +155,14 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
 
     void startBgMusic() {
         if (!backgroundMusic.equals("none")) {
-            Const.playBgSound(backgroundMusic);
+            LookAndFeel.playBgSound(backgroundMusic);
         }
     }
 
     public void game_over() {
         if (!gameOverSound.equals("none")) {
-            Const.stopBgSound();
-            Const.playSound(gameOverSound);
+            LookAndFeel.stopBgSound();
+            LookAndFeel.playSound(gameOverSound);
         }
 
         halt();
@@ -181,7 +182,7 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
     public void pause() {
         if (isPaused) { // Resume
             if (!backgroundMusic.equals("none")) {
-                Const.playBgSound(backgroundMusic);
+                LookAndFeel.playBgSound(backgroundMusic);
             }
             isPaused = false;
             remove(pauseMenu);
@@ -191,7 +192,7 @@ public abstract class Game extends JPanel /*implements Runnable*/ {
             resume();
         } else { // Pause
             if (!backgroundMusic.equals("none")) {
-                Const.stopBgSound();
+                LookAndFeel.stopBgSound();
             }
             isPaused = true;
             remove(screen);

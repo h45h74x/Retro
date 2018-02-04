@@ -1,16 +1,17 @@
 package Retro;
 
-import Retro.Debug.Debug_Console;
+import Retro.Debug.Console;
 import Retro.Game.Game;
-import Retro.Game.Game_Snake;
-import Retro.Game.Game_SpaceDodge;
-import Retro.Game.Game_SpaceImpact;
+import Retro.Game.Snake;
+import Retro.Game.SpaceDodge;
+import Retro.Game.SpaceImpact;
+import Retro.Managers.LookAndFeel;
 import Retro.Menu.*;
 import Retro.UI.Frame;
 
 public class Launcher {
 
-    public static Debug_Console con;
+    public static Console con;
     private static Launcher main;
     private static int lastGameIndex;
     private final Frame mainFrame;
@@ -20,8 +21,9 @@ public class Launcher {
 
     private Launcher() {
         mainFrame = new Frame(Const.Strings.name);
-        con = new Debug_Console(mainFrame);
-        Const.LoadFonts();
+        con = new Console(mainFrame);
+        con.printSettings();
+        LookAndFeel.LoadFonts();
     }
 
     public static void main(String[] args) {
@@ -42,6 +44,13 @@ public class Launcher {
     public static void extStartGame() {
         if (main == null) return;
         main.startGame(lastGameIndex);
+    }
+
+    public static void restart() {
+        if (main != null) main.getMainFrame().dispose();
+        if (con != null) {con.dispose();}
+        main = new Launcher();
+        home();
     }
 
     public static void home() {
@@ -109,19 +118,19 @@ public class Launcher {
         detach();
         switch (index) {
             case Const.Menues.GAME_SELECTOR:
-                menu = new Menu_Games(this);
+                menu = new Gamechooser(this);
                 break;
             case Const.Menues.CREDITS:
-                menu = new Menu_Credits(this);
+                menu = new Credits(this);
                 break;
             case Const.Menues.PAUSE:
-                menu = new Menu_Pause(this);
+                menu = new Pause(this);
                 break;
             case Const.Menues.GAME_OVER:
-                menu = new Menu_GameOver(this);
+                menu = new GameOver(this);
                 break;
             default: //MainMenu
-                menu = new Menu_Main(this);
+                menu = new Main(this);
                 break;
         }
         attach();
@@ -132,16 +141,16 @@ public class Launcher {
         lastGameIndex = index;
         switch (index) {
             case Const.Games.SPACE_IMPACT:
-                game = new Game_SpaceImpact(Const.Games.names[index]);
+                game = new SpaceImpact(Const.Games.names[index]);
                 break;
             case Const.Games.SNAKE:
-                game = new Game_Snake(Const.Games.names[index]);
+                game = new Snake(Const.Games.names[index]);
                 break;
             case Const.Games.SPACE_DODGE:
-                game = new Game_SpaceDodge(Const.Games.names[index]);
+                game = new SpaceDodge(Const.Games.names[index]);
                 break;
             default: //MainMenu
-                menu = new Menu_Main(this);
+                menu = new Main(this);
                 break;
         }
         attach();

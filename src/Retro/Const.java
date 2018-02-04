@@ -1,89 +1,19 @@
 package Retro;
 
-import Retro.Debug.Debug_Console;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
 
 @SuppressWarnings("ALL")
 public final class Const {
-    private static MediaPlayer bgPlayer;
-    private static MediaPlayer soundPlayer;
-    private static ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-    private static JFXPanel jfx = null;
+
 
     private Const() {
     }
 
-    private static void initJFX() {
-        if (jfx != null) return;
-        jfx = new JFXPanel();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Launcher.con.printInfo("JFX Summoned");
-            }
-        });
-    }
-
-    public static Image getImage(String p) {
-        try {
-            return ImageIO.read(classLoader.getResourceAsStream(p));
-        } catch (IOException e) {
-            Debug_Console.staticPrintlnError(e);
-        }
-        return null;
-    }
-
-    public static void LoadFonts() {
-        for (int i = 0; i < Strings.fontpaths.length; i++) {
-            try {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, classLoader.getResourceAsStream(Strings.fontpaths[i]));
-                //Font font = Font.createFont(Font.TRUETYPE_FONT, new File(Strings.fontpaths[i]));
-                Launcher.con.printlnWarning("loaded " + font.getFontName());
-                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                ge.registerFont(font);
-
-            } catch (FontFormatException | IOException e) {
-                Launcher.con.printlnError(e.toString());
-            }
-        }
-    }
-
-    public static void playBgSound(String path) {
-        initJFX();
-        stopBgSound();
-        Media media = new Media(classLoader.getResource(path).toString());
-        bgPlayer = new MediaPlayer(media);
-        bgPlayer.play();
-    }
-
-    public static void playSound(String path) {
-        initJFX();
-        stopSound();
-        Media media = new Media(classLoader.getResource(path).toString());
-        soundPlayer = new MediaPlayer(media);
-        soundPlayer.play();
-    }
-
-    public static void stopSound() {
-        if (soundPlayer != null) soundPlayer.stop();
-    }
-
-    public static void stopBgSound() {
-        if (bgPlayer != null) bgPlayer.stop();
-    }
-
     @SuppressWarnings("SpellCheckingInspection")
     public static final class Bools {
-        public static final boolean debug = true;
-        public static final boolean sounds = true;
-        public static final boolean music = true;
+        public static boolean debug = false;
+        public static boolean sounds = true;
+        public static boolean music = true;
     }
 
     public static final class Colors {
@@ -154,6 +84,7 @@ public final class Const {
         public static final String version = "v1.0";
         public static final String start = "Start";
         public static final String pause = "Pause";
+        public static final String debug = "Debug";
         public static final String return_to = "Return to";
         public static final String game_over = "RIP";
         public static final String retry = "Retry";
@@ -164,10 +95,14 @@ public final class Const {
         public static final String name = "Retro";
         public static final String credits = "Credits";
         public static final String greeting = "Welcome,";
+        public static final String howto = "WASD: navigate, steer | " +
+                "SPACE: enter, action | " +
+                "ESC: back, pause";
         @SuppressWarnings("SpellCheckingInspection")
         public static final String menutitle = "Main Menu";
         public static final String github = "Visit our GitHub Repo!";
         public static final String github_link = "https://github.com/h45h74x/retro";
+        public static final String instagram_link = "https://instagram.com/_simongruber_";
         @SuppressWarnings("SpellCheckingInspection")
         public static final String website_h45 = "Visit Simons Website!";
         public static final String website_h45_link = "http://h45h74x.eu.org";
@@ -185,7 +120,7 @@ public final class Const {
                 " \n" +
                 "Retro was created by Selma Hasanovic (selmah1) and Simon Gruber (h45h74x)";
         @SuppressWarnings("SpellCheckingInspection")
-        static final String[] fontpaths = {
+        public static final String[] fontpaths = {
                 "fonts/NotoSans-Black.ttf",
                 "fonts/NotoSans-Bold.ttf",
                 "fonts/PixelVerdana.ttf",
@@ -196,6 +131,25 @@ public final class Const {
         private Strings() {
         }
 
+    }
+
+    public static final class UI {
+        private UI() {
+        }
+
+        private static final int loadSize = 64;
+        public static final int scaledSize = 40;
+
+        public static final String[] web = {
+                "/icons/ui/github_" + loadSize + ".png",
+                "/icons/ui/insta_" + loadSize + ".png",
+                "/icons/ui/internet_" + loadSize + ".png"
+        };
+        public static final String settings = "/icons/ui/settings_" + loadSize + ".png";
+        public static final String[] sound = {"/icons/ui/sound_" + loadSize + "_true.png", "icons/ui/sound_" + loadSize + "false.png"};
+        public static final String[] music = {"/icons/ui/music_" + loadSize + "_true.png"};
+        public static final String[] actions = {"/icons/ui/error_" + loadSize + ".png"};
+        public static final String[] debug = {"/icons/ui/terminal_" + loadSize + "_true.png"};
     }
 
     @SuppressWarnings("SpellCheckingInspection")

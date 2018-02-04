@@ -1,6 +1,7 @@
 package Retro.UI;
 
 import Retro.Const;
+import Retro.Managers.LookAndFeel;
 
 import javax.swing.*;
 
@@ -9,7 +10,7 @@ public class Frame extends JFrame {
     public Frame(String name) {
         setTitle(name);
 
-        setIconImage(Const.getImage(Const.Strings.iconpaths[0]));
+        setIconImage(LookAndFeel.getImage(Const.Strings.iconpaths[0]));
 
         getContentPane().setBackground(Const.Colors.background());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

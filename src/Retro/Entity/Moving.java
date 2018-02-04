@@ -2,6 +2,7 @@ package Retro.Entity;
 
 import Retro.Const;
 import Retro.Launcher;
+import Retro.Managers.LookAndFeel;
 
 import java.awt.*;
 
@@ -52,7 +53,7 @@ public abstract class Moving {
 
     private void loadIcon() {
         try {
-            icon = Const.getImage(iconPath);
+            icon = LookAndFeel.getImage(iconPath);
         } catch (Exception ex) {
             Launcher.con.printlnError(ex.toString());
         }
